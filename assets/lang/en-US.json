@@ -1,0 +1,65 @@
+{
+    "skip": "Skip",
+    "next": "Next",
+
+    "welcomeTo": "Welcome to",
+    "app": "Notexa",
+    "email": "E-mail",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "login": "Login",
+    "dontHaveAccount": "Don't have account?",
+    "createRightNow": "Create right now!",
+
+    "registerTo": "Register to",
+    "username": "Username",
+    "passwordAgain": "Password Again",
+    "register": "Register",
+    "alreadyHaveAccount": "Already have account?",
+    "loginRightNow": "Login right now!",
+    "registrationSuccess": "Registration is successful.",
+
+    "sendMailToReset": "Send Mail To Reset",
+    "sendMail": "Send Mail",
+    "sendMailFailure": "An error occurred while sending email.",
+
+    "verification": "Verification",
+    "confirm": "Confirm",
+
+    "home": "Home",
+    "welcome": "Welcome",
+    "goToProfile": "Go to Profile",
+
+    "settings": "Settings",
+    "changeTheme": "Change Theme",
+    "english": "English",
+    "turkish": "Turkish",
+    "exitFromAccount": "Exit from Account",
+
+    "cancel": "Cancel",
+    "Save": "Save",
+
+    "details": "Details",
+
+    "stop": "Stop",
+    "abort": "Abort",
+
+    "tryAgain": "Try Again",
+
+    "fetchedDataIsEmpty": "Fetched data is empty.",
+
+    "areYouSure": "Are you sure?",
+    "approve": "Approve",
+    "refuse": "Refuse",
+
+    "emptyFieldMessage": "Field can't be empty.",
+    "invalidEmailMessage": "E-mail format is not suitable.",
+    "invalidEmailDomainMessage": "E-mail domain is not valid.",
+    "invalidPasswordMessage": "Password format is not suitable.",
+    "invalidPasswordShortLengthMessage": "Password can't be shorter than 8 characters.",
+    "invalidPasswordLongLengthMessage": "Password can't be longer than 16 characters.",
+    "invalidUsernameShortLength": "Username can't be shorter than 5 characters.",
+    "invalidUsernameLongLength": "Username can't be longer than 20 characters.",
+    "invalidPasswordConfirmMatch": "Make sure both password fields are the same.",
+    "invalidType": "Type of fetched data was wrong."
+}

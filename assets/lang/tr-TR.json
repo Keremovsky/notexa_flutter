@@ -1,0 +1,65 @@
+{
+    "skip": "Atla",
+    "next": "Sonraki",
+
+    "welcomeTo": "Hoşgeldiniz",
+    "app": "Notexa",
+    "email": "E-posta",
+    "password": "Şifre",
+    "forgotPassword": "Şifremi unuttum.",
+    "login": "Giriş Yap",
+    "dontHaveAccount": "Hesabınız mı yok?",
+    "createRightNow": "Hemen oluşturun!",
+    
+    "registerTo": "Kayıt Olun",
+    "username": "Kullanıcı Adı",
+    "passwordAgain": "Tekrardan Şifre",
+    "register": "Kayıt Ol",
+    "alreadyHaveAccount": "Zaten hesabınız var mı?",
+    "loginRightNow": "Hemen giriş yapın!",
+    "registrationSuccess": "Kayıt başarılı.",
+
+    "sendMailToReset": "E-posta Yolla Yenilemek",
+    "sendMail":"E-posta Yolla",
+    "sendMailFailure": "E-posta yollanırken bir hata meydana geldi.",
+
+    "verification": "Doğrulama",
+    "confirm": "Onayla",
+
+    "home": "Ana Sayfa",
+    "welcome": "Hoşgeldiniz",
+    "goToProfile": "Profile Git",
+
+    "settings": "Ayarlar",
+    "changeTheme": "Temayı Değiştir",
+    "english": "İngilizce",
+    "turkish": "Türkçe",
+    "exitFromAccount": "Hesaptan Çıkış Yap",
+    
+    "cancel": "İptal",
+    "Save": "Kaydet",
+    
+    "details": "Detay",
+    
+    "stop": "Dur",
+    "abort": "İptal Et",
+
+    "tryAgain": "Tekrar Dene",
+
+    "fetchedDataIsEmpty": "Çekilen veri boş.",
+
+    "areYouSure": "Emin misiniz?",
+    "approve": "Kabul et",
+    "refuse": "Reddet",
+
+    "emptyFieldMessage": "Alan boş bırakılamaz.",
+    "invalidEmailMessage": "E-posta formatı uygun değil.",
+    "invalidEmailDomainMessage": "E-posta alanı uygun değil.",
+    "invalidPasswordMessage": "Şifre formatı uygun değil.",
+    "invalidPasswordShortLengthMessage": "Şifre 8 karakterden kısa olamaz.",
+    "invalidPasswordLongLengthMessage": "Şifre 16 karakterden uzun olamaz.",
+    "invalidUsernameShortLength": "Kullanıcı adı 5 karakterden kısa olamaz.",
+    "invalidUsernameLongLength": "Kullanıcı adı 20 karakterden uzun olamaz.",
+    "invalidPasswordConfirmMatch": "Her iki şifrenin de aynı olduğundan emin olun.",
+    "invalidType": "Çekilen verinin tipi yanlış."
+}

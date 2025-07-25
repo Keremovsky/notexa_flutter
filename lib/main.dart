@@ -1,34 +1,21 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_mobile/core/services/provider/app_provider.dart';
+import 'package:flutter_mobile/my_app.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  await EasyLocalization.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Notexa Flutter',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const HomeScreen(),
-    );
-  }
-}
+  await AppProvider.ensureInitialized();
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Center(child: Text("Home Screen"))],
-      ),
-    );
-  }
+  await dotenv.load();
+
+  runApp(MultiProvider(providers: AppProvider().dependItems(), child: MyApp()));
 }
