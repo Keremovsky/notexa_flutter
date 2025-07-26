@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -34,6 +35,46 @@ class NetworkService implements INetworkService {
     _dio.options.baseUrl = baseUrl;
   }
 
+  Stream<Either<FailureModel, String>> sseStream({
+    required String url,
+    required Map<String, dynamic> data,
+  }) async* {
+    try {
+      if (!await _connectivityService.isConnected) {
+        // TODO
+        yield Left(FailureModel.fail("No internet connection"));
+      }
+
+      final response = await _dio.post<ResponseBody>(
+        url,
+        data: data,
+        options: Options(
+          headers: {'Accept': 'text/event-stream'},
+          responseType: ResponseType.stream,
+        ),
+      );
+
+      final stream = response.data!.stream
+          .transform(StreamTransformer.fromBind(utf8.decoder.bind))
+          .transform(const LineSplitter());
+
+      await for (final line in stream) {
+        if (line.startsWith('data: ')) {
+          final jsonPart = line.substring(6);
+          final decoded = jsonDecode(jsonPart);
+          final token = decoded['answer'];
+
+          if (token == '[END]') break;
+          yield Right(token);
+        }
+      }
+    } catch (e, stackTrace) {
+      log("SSE Error: $e\n$stackTrace");
+      // TODO
+      yield Left(FailureModel.fail("message"));
+    }
+  }
+
   @override
   void setHeaders(Map<NetworkHeaderKeys, String> headers) {
     headers.forEach((key, value) {
@@ -62,12 +103,14 @@ class NetworkService implements INetworkService {
   }
 
   @override
-  Future<Either<FailureModel, Response<dynamic>>> get(String url) async {
+  Future<Either<FailureModel, Response<Map<String, dynamic>>>> get(
+    String url,
+  ) async {
     return await _doRequest(() => _dio.get(url));
   }
 
   @override
-  Future<Either<FailureModel, Response<dynamic>>> post(
+  Future<Either<FailureModel, Response<Map<String, dynamic>>>> post(
     String url, {
     required dynamic data,
   }) async {
@@ -75,20 +118,22 @@ class NetworkService implements INetworkService {
   }
 
   @override
-  Future<Either<FailureModel, Response<dynamic>>> delete(String url) async {
+  Future<Either<FailureModel, Response<Map<String, dynamic>>>> delete(
+    String url,
+  ) async {
     return await _doRequest(() => _dio.delete(url));
   }
 
   @override
-  Future<Either<FailureModel, Response<dynamic>>> put(
+  Future<Either<FailureModel, Response<Map<String, dynamic>>>> put(
     String url, {
     required dynamic data,
   }) async {
     return await _doRequest(() => _dio.put(url, data: data));
   }
 
-  Future<Either<FailureModel, Response<dynamic>>> _doRequest(
-    AsyncValueGetter<Response<dynamic>> operation,
+  Future<Either<FailureModel, Response<Map<String, dynamic>>>> _doRequest(
+    AsyncValueGetter<Response<Map<String, dynamic>>> operation,
   ) async {
     try {
       if (await _connectivityService.isConnected) {

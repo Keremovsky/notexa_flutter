@@ -37,7 +37,6 @@ class AuthController extends ChangeNotifier {
       },
       (result) async {
         final data = result.data;
-        print(data);
         if (data is Map<String, dynamic>) {
           final userData = UserModel.fromJson(data);
 
@@ -53,6 +52,7 @@ class AuthController extends ChangeNotifier {
           _networkService.setToken("Bearer ${userData.access}");
 
           _user = userData;
+          print(_user);
           notifyListeners();
 
           return none();

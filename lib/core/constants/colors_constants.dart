@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class ColorConstants {
+  static const chatBubbleColor = Color.fromRGBO(48, 151, 255, 1);
+
   static const lightMain = Color.fromRGBO(10, 132, 255, 1);
   static const darkMain = Color.fromRGBO(0, 122, 255, 1);
   static const green = Color.fromRGBO(30, 204, 53, 1);

@@ -4,6 +4,7 @@ import 'package:flutter_mobile/core/services/secure_storage/secure_storage_servi
 import 'package:flutter_mobile/core/services/theme/theme_service.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/auth/controller/auth_controller.dart';
+import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
 import 'package:flutter_mobile/router/router.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -22,6 +23,7 @@ class AppProvider {
       ChangeNotifierProvider(create: (_) => AppRouter()),
       ChangeNotifierProvider(create: (_) => ThemeService()),
       ChangeNotifierProvider(create: (_) => AuthController()),
+      ChangeNotifierProvider(create: (_) => ChatController()),
       Provider(create: (_) => FeedbackUtil()),
     ];
   }
