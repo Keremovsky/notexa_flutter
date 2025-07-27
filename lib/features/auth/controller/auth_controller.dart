@@ -52,7 +52,6 @@ class AuthController extends ChangeNotifier {
           _networkService.setToken("Bearer ${userData.access}");
 
           _user = userData;
-          print(_user);
           notifyListeners();
 
           return none();

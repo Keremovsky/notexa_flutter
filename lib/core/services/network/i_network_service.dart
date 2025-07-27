@@ -2,9 +2,9 @@ part of 'network_service.dart';
 
 abstract interface class INetworkService {
   void setBaseUrl(String baseUrl);
-  void setHeaders(Map<NetworkHeaderKeys, String> headers);
+  void setHeaders(Map<String, String> headers);
   void setHeader(String key, String value);
-  void removeHeader(NetworkHeaderKeys key);
+  void removeHeader(String key);
   void setToken(String token);
   Stream<Either<FailureModel, String>> sseStream({
     required String url,

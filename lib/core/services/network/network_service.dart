@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_mobile/core/constants/network_constants.dart';
-import 'package:flutter_mobile/core/enums/network_keys_enum.dart';
 import 'package:flutter_mobile/core/extensions/network_extensions.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/services/connectivity/connectivity_service.dart';
@@ -69,9 +68,9 @@ class NetworkService implements INetworkService {
   }
 
   @override
-  void setHeaders(Map<NetworkHeaderKeys, String> headers) {
+  void setHeaders(Map<String, String> headers) {
     headers.forEach((key, value) {
-      _dio.options.headers[key.name] = value;
+      _dio.options.headers[key] = value;
     });
   }
 
@@ -81,8 +80,8 @@ class NetworkService implements INetworkService {
   }
 
   @override
-  void removeHeader(NetworkHeaderKeys key) {
-    _dio.options.headers.remove(key.name);
+  void removeHeader(String key) {
+    _dio.options.headers.remove(key);
   }
 
   @override

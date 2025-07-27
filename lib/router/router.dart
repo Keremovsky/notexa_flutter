@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile/features/auth/view/login_view.dart';
 import 'package:flutter_mobile/features/auth/view/register_view.dart';
 import 'package:flutter_mobile/features/home/view/home_view.dart';
+import 'package:flutter_mobile/features/workspace/view/workspace_view.dart';
 
 part 'router.gr.dart';
 
@@ -13,5 +14,6 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: LoginViewRoute.page, initial: true),
     AutoRoute(page: RegisterViewRoute.page),
     AutoRoute(page: HomeViewRoute.page),
+    AutoRoute(page: WorkspaceViewRoute.page),
   ];
 }

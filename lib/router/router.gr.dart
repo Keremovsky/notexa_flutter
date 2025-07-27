@@ -90,3 +90,19 @@ class RegisterViewRoute extends PageRouteInfo<void> {
     },
   );
 }
+
+/// generated route for
+/// [WorkspaceView]
+class WorkspaceViewRoute extends PageRouteInfo<void> {
+  const WorkspaceViewRoute({List<PageRouteInfo>? children})
+    : super(WorkspaceViewRoute.name, initialChildren: children);
+
+  static const String name = 'WorkspaceViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WorkspaceView();
+    },
+  );
+}

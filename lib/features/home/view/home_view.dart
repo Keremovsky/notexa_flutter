@@ -8,6 +8,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: [Text("Home"), ChatView()]));
+    return Scaffold(body: Column(children: [ChatView()]));
   }
 }
