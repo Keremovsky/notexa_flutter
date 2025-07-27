@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_mobile/core/constants/colors_constants.dart';
-import 'package:flutter_mobile/core/constants/size_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

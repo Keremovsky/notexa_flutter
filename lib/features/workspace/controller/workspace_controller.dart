@@ -29,10 +29,7 @@ class WorkspaceController extends ChangeNotifier {
   // WORKSPACE
 
   Future<Option<FailureModel>> createWorkspace(String name) async {
-    final result = await _networkService.post(
-      "/workspace/create",
-      data: {"name": name},
-    );
+    final result = await _networkService.post("/workspace", data: {"name": name});
 
     return result.fold(
       (error) {
@@ -131,7 +128,7 @@ class WorkspaceController extends ChangeNotifier {
         _networkService.setHeader("Content-Type", "multipart/form-data");
 
         final result = await _networkService.post(
-          "/workspace/upload/$workspaceId",
+          "/workspace/documents/upload/$workspaceId",
           data: formData,
         );
 
@@ -159,7 +156,7 @@ class WorkspaceController extends ChangeNotifier {
   }
 
   Future<Option<FailureModel>> removeDocumentFromWorkspace(int docId) async {
-    final result = await _networkService.delete("/workspace/remove_document/$docId");
+    final result = await _networkService.delete("/workspace/documents/$docId");
 
     return result.fold(
       (error) {
@@ -171,11 +168,13 @@ class WorkspaceController extends ChangeNotifier {
     );
   }
 
+  // TODO: get document file from server
+
   // NOTE
 
   Future<Option<FailureModel>> addNoteToWorkspace(String title, int docId) async {
     final result = await _networkService.post(
-      "/workspace/add_note",
+      "/workspace/notes",
       data: {"title": title, "doc": docId},
     );
 
@@ -190,7 +189,7 @@ class WorkspaceController extends ChangeNotifier {
   }
 
   Future<Option<FailureModel>> removeNoteFromWorkspace(int noteId) async {
-    final result = await _networkService.delete("/workspace/remove_note/$noteId");
+    final result = await _networkService.delete("/workspace/notes/$noteId");
 
     return result.fold(
       (error) {

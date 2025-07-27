@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/services/network/network_service.dart';
 import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 import 'package:flutter_mobile/features/chat/models/chat_data_model.dart';
-import 'package:fpdart/fpdart.dart';
 
 class ChatController extends ChangeNotifier {
   late NetworkService _networkService;
