@@ -59,14 +59,7 @@ class NetworkService implements INetworkService {
           .transform(const LineSplitter());
 
       await for (final line in stream) {
-        if (line.startsWith('data: ')) {
-          final jsonPart = line.substring(6);
-          final decoded = jsonDecode(jsonPart);
-          final token = decoded['answer'];
-
-          if (token == '[END]') break;
-          yield Right(token);
-        }
+        yield Right(line);
       }
     } catch (e, stackTrace) {
       log("SSE Error: $e\n$stackTrace");

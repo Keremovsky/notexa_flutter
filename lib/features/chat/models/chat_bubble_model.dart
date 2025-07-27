@@ -1,7 +1,7 @@
 enum ChatType { user, ai }
 
 class ChatBubble {
-  final String text;
+  String text;
   final ChatType type;
 
   ChatBubble({required this.text, required this.type});

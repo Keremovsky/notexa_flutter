@@ -129,7 +129,7 @@ class CustomDropdownButtonFormField<T> extends HookWidget {
                 iconSize: 28,
               ),
               isExpanded: true,
-              onChanged: (value) {},
+              onChanged: onChanged,
               onSaved: onSaved,
               validator: validator,
               selectedItemBuilder: (context) => items.map((e) => e.child).toList(),

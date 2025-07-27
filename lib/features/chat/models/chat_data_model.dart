@@ -1,4 +1,4 @@
-import 'package:flutter_mobile/features/chat/widget/chat_bubble.dart';
+import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 
 enum ChatMode { chat, role, tutor }
 
@@ -7,5 +7,6 @@ class ChatData {
   final ChatMode mode;
   late int id;
 
-  ChatData({required this.mode, this.messages = const <ChatBubble>[]});
+  ChatData({required this.mode, List<ChatBubble> messages = const []})
+    : messages = List<ChatBubble>.from(messages);
 }

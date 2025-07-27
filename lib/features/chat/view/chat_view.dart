@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/components/custom_dropdown_button.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
+import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
+import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 import 'package:flutter_mobile/features/chat/state/chat_view_state.dart';
 import 'package:flutter_mobile/features/chat/widget/chat_bubble.dart';
+import 'package:provider/provider.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -21,30 +24,35 @@ class _ChatViewState extends ChatViewState {
           CustomDropdownButtonFormField(
             height: 40,
             width: 140,
-            onSaved: onChatModeSaved,
+            onChanged: onChatModeChanged,
+            onSaved: (_) {},
             items: [
               DropdownMenuItem(value: "role", child: Text("Role-play")),
               DropdownMenuItem(value: "chat", child: Text("Chat")),
               DropdownMenuItem(value: "tutor", child: Text("Tutor")),
             ],
-            value: currentStringMode,
           ),
           SizedBox(height: 3),
           SizedBox(
             height: context.screenHeight - 150,
             child: Expanded(
-              child: ListView.builder(
-                controller: scrollController,
-                padding: const EdgeInsets.all(8),
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  final msg = messages[index];
-                  final isUser = msg.startsWith("You:");
-                  final text = msg.replaceFirst(RegExp(r"^(You|AI): "), "");
+              child: Consumer<ChatController>(
+                builder: (context, controller, _) {
+                  final messages = controller.chatData.messages;
+                  return ListView.builder(
+                    controller: scrollController,
+                    padding: const EdgeInsets.all(8),
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      final isUser = ChatType.user == messages[index].type;
 
-                  return Align(
-                    alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-                    child: ChatBubble(text: text, isUser: isUser),
+                      return Align(
+                        alignment: isUser
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        child: ChatBubbleBox(text: messages[index], isUser: isUser),
+                      );
+                    },
                   );
                 },
               ),

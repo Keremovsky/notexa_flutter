@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/constants/colors_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
+import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 
-class ChatBubble extends StatelessWidget {
-  final String text;
+class ChatBubbleBox extends StatelessWidget {
+  final ChatBubble text;
   final bool isUser;
 
-  const ChatBubble({super.key, required this.text, required this.isUser});
+  const ChatBubbleBox({super.key, required this.text, required this.isUser});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ChatBubble extends StatelessWidget {
         color: isUser ? ColorConstants.chatBubbleColor : Colors.grey.shade300,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(text, style: context.displayLarge),
+      child: Text(text.text, style: context.displayLarge),
     );
   }
 }
