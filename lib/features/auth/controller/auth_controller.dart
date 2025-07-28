@@ -62,12 +62,12 @@ class AuthController extends ChangeNotifier {
     );
   }
 
-  // TODO: come back and decide and implement auto login
   Future<Option<FailureModel>> autoLogin() async {
     final refreshToken = await _secureStorageService.get(
       dotenv.env['refreshToken']!,
     );
 
+    // todo
     if (refreshToken == null) {
       return some(FailureModel.fail(""));
     }
@@ -78,7 +78,27 @@ class AuthController extends ChangeNotifier {
       return some(FailureModel.fail(""));
     }
 
-    return await refreshAuth(refreshToken);
+    final result = await _networkService.post(
+      "/users/auto_login",
+      data: {"refresh_token": refreshToken},
+    );
+
+    return result.fold(
+      (error) {
+        log(error.message);
+        return some(error);
+      },
+      (result) {
+        final data = result.data;
+        if (data is Map<String, dynamic>) {
+          _user = UserModel.fromJson(data);
+          notifyListeners();
+          return none();
+        }
+        // TODO
+        return some(FailureModel.fail(""));
+      },
+    );
   }
 
   Future<Option<FailureModel>> register(RegisterModel data) async {

@@ -9,6 +9,7 @@ import 'package:flutter_mobile/features/home/view/settings_view.dart';
 import 'package:flutter_mobile/features/workspace/view/workspace_view.dart';
 // ignore: deprecated_member_use
 import 'package:collection/equality.dart';
+import 'package:flutter_mobile/router/guards/auto_login_guard.dart';
 
 part 'router.gr.dart';
 
@@ -16,7 +17,7 @@ part 'router.gr.dart';
 class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: LoginViewRoute.page, initial: true),
+    AutoRoute(page: LoginViewRoute.page, initial: true, guards: [AutoLoginGuard()]),
     AutoRoute(page: RegisterViewRoute.page),
     AutoRoute(page: HomeViewRoute.page),
     AutoRoute(page: ProfileViewRoute.page),
