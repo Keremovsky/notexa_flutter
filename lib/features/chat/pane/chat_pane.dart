@@ -3,18 +3,18 @@ import 'package:flutter_mobile/core/components/custom_dropdown_button.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
 import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
-import 'package:flutter_mobile/features/chat/state/chat_view_state.dart';
+import 'package:flutter_mobile/features/chat/state/chat_pane_state.dart';
 import 'package:flutter_mobile/features/chat/widget/chat_bubble.dart';
 import 'package:provider/provider.dart';
 
-class ChatView extends StatefulWidget {
-  const ChatView({super.key});
+class ChatPane extends StatefulWidget {
+  const ChatPane({super.key});
 
   @override
-  ChatViewState createState() => _ChatViewState();
+  ChatPaneState createState() => _ChatPaneState();
 }
 
-class _ChatViewState extends ChatViewState {
+class _ChatPaneState extends ChatPaneState {
   @override
   Widget build(BuildContext context) {
     return Padding(

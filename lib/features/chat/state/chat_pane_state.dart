@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
-import 'package:flutter_mobile/features/chat/view/chat_view.dart';
+import 'package:flutter_mobile/features/chat/pane/chat_pane.dart';
 import 'package:provider/provider.dart';
 
-abstract class ChatViewState extends State<ChatView> {
+abstract class ChatPaneState extends State<ChatPane> {
   final TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
