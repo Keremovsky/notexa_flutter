@@ -97,12 +97,26 @@ class AuthController extends ChangeNotifier {
     );
   }
 
-  Future<Option<FailureModel>> exitFromAccount() async {
+  Future<Option<FailureModel>> logout() async {
     try {
-      await _secureStorageService.remove(dotenv.env['refreshToken']!);
-      await _secureStorageService.remove(dotenv.env['accessToken']!);
-      _user = UserModel.empty();
-      return none();
+      final token = _secureStorageService.get(dotenv.env["refreshToken"]!);
+
+      final result = await _networkService.post(
+        "/logout",
+        data: {"refresh_token": token},
+      );
+
+      return result.fold(
+        (error) {
+          return some(error);
+        },
+        (data) async {
+          await _secureStorageService.remove(dotenv.env['refreshToken']!);
+          await _secureStorageService.remove(dotenv.env['accessToken']!);
+          _user = UserModel.empty();
+          return none();
+        },
+      );
     } catch (e) {
       return some(FailureModel.fail("An error occurred while exiting."));
     }

@@ -1,13 +1,58 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/features/chat/pane/chat_pane.dart';
+import 'package:flutter_mobile/core/components/custom_button.dart';
+import 'package:flutter_mobile/core/extensions/context_extensions.dart';
+import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_item_model.dart';
+import 'package:flutter_mobile/features/home/state/home_view_state.dart';
+import 'package:flutter_mobile/gen/locale_keys.g.dart';
 
 @RoutePage()
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class HomeView extends StatefulWidget {
+  final List<WorkspaceListItemModel> workspaces;
+
+  const HomeView({super.key, required this.workspaces});
 
   @override
+  HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends HomeViewState {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: [ChatPane()]));
+    return Scaffold(
+      body: Row(
+        children: [
+          SizedBox(
+            width: context.screenWidth * 0.5,
+            child: Column(
+              children: [
+                CustomButton(
+                  onPressed: () {},
+                  child: Text(LocaleKeys.goToProfile.tr()),
+                ),
+                CustomButton(
+                  onPressed: onSettingsPressed,
+                  child: Text(LocaleKeys.settings.tr()),
+                ),
+                CustomButton(
+                  onPressed: onExitPressed,
+                  child: Text(LocaleKeys.exitFromAccount.tr()),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: context.screenWidth * 0.5,
+            child: ListView.builder(
+              itemCount: 0,
+              itemBuilder: (context, index) {
+                return SizedBox();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

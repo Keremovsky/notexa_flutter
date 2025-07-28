@@ -12,18 +12,50 @@ part of 'router.dart';
 
 /// generated route for
 /// [HomeView]
-class HomeViewRoute extends PageRouteInfo<void> {
-  const HomeViewRoute({List<PageRouteInfo>? children})
-    : super(HomeViewRoute.name, initialChildren: children);
+class HomeViewRoute extends PageRouteInfo<HomeViewRouteArgs> {
+  HomeViewRoute({
+    Key? key,
+    required List<WorkspaceListItemModel> workspaces,
+    List<PageRouteInfo>? children,
+  }) : super(
+         HomeViewRoute.name,
+         args: HomeViewRouteArgs(key: key, workspaces: workspaces),
+         initialChildren: children,
+       );
 
   static const String name = 'HomeViewRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const HomeView();
+      final args = data.argsAs<HomeViewRouteArgs>();
+      return HomeView(key: args.key, workspaces: args.workspaces);
     },
   );
+}
+
+class HomeViewRouteArgs {
+  const HomeViewRouteArgs({this.key, required this.workspaces});
+
+  final Key? key;
+
+  final List<WorkspaceListItemModel> workspaces;
+
+  @override
+  String toString() {
+    return 'HomeViewRouteArgs{key: $key, workspaces: $workspaces}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! HomeViewRouteArgs) return false;
+    return key == other.key &&
+        const ListEquality().equals(workspaces, other.workspaces);
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ const ListEquality().hash(workspaces);
 }
 
 /// generated route for
@@ -89,6 +121,50 @@ class RegisterViewRoute extends PageRouteInfo<void> {
       return const RegisterView();
     },
   );
+}
+
+/// generated route for
+/// [SettingsView]
+class SettingsViewRoute extends PageRouteInfo<SettingsViewRouteArgs> {
+  SettingsViewRoute({Key? key, List<PageRouteInfo>? children})
+    : super(
+        SettingsViewRoute.name,
+        args: SettingsViewRouteArgs(key: key),
+        initialChildren: children,
+      );
+
+  static const String name = 'SettingsViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SettingsViewRouteArgs>(
+        orElse: () => const SettingsViewRouteArgs(),
+      );
+      return SettingsView(key: args.key);
+    },
+  );
+}
+
+class SettingsViewRouteArgs {
+  const SettingsViewRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SettingsViewRouteArgs{key: $key}';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! SettingsViewRouteArgs) return false;
+    return key == other.key;
+  }
+
+  @override
+  int get hashCode => key.hashCode;
 }
 
 /// generated route for

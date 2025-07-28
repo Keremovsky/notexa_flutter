@@ -5,6 +5,7 @@ import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/core/utils/validators.dart';
 import 'package:flutter_mobile/features/auth/controller/auth_controller.dart';
 import 'package:flutter_mobile/features/auth/view/login_view.dart';
+import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
 import 'package:flutter_mobile/router/router.dart';
 import 'package:provider/provider.dart';
 
@@ -45,12 +46,24 @@ abstract class LoginViewState extends State<LoginView> {
       );
 
       result.fold(
-        () {
-          widget.onSuccess != null
-              ? widget.onSuccess!()
-              : mounted
-              ? context.router.replaceAll([HomeViewRoute()])
-              : null;
+        () async {
+          final result = await context.read<WorkspaceController>().getWorkspaces();
+
+          result.fold(
+            (error) {
+              // TODO
+              context.read<FeedbackUtil>().showSnackBar(context, error.message);
+            },
+            (workspaces) {
+              widget.onSuccess != null
+                  ? widget.onSuccess!()
+                  : mounted
+                  ? context.router.replaceAll([
+                      HomeViewRoute(workspaces: workspaces),
+                    ])
+                  : null;
+            },
+          );
         },
         (error) {
           context.read<FeedbackUtil>().showSnackBar(context, error.message);
