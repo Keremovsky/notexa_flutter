@@ -15,11 +15,16 @@ part 'router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: "Screen|Route|View")
 class AppRouter extends RootStackRouter {
+  static final AppRouter _instance = AppRouter._init();
+  factory AppRouter() => _instance;
+
+  AppRouter._init();
+
   @override
   List<AutoRoute> get routes => [
-    AutoRoute(page: LoginViewRoute.page, initial: true, guards: [AutoLoginGuard()]),
+    AutoRoute(page: LoginViewRoute.page),
     AutoRoute(page: RegisterViewRoute.page),
-    AutoRoute(page: HomeViewRoute.page),
+    AutoRoute(page: HomeViewRoute.page, initial: true, guards: [AutoLoginGuard()]),
     AutoRoute(page: ProfileViewRoute.page),
     AutoRoute(page: SettingsViewRoute.page),
     AutoRoute(page: WorkspaceViewRoute.page),

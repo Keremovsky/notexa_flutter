@@ -12,50 +12,18 @@ part of 'router.dart';
 
 /// generated route for
 /// [HomeView]
-class HomeViewRoute extends PageRouteInfo<HomeViewRouteArgs> {
-  HomeViewRoute({
-    Key? key,
-    required List<WorkspaceListItemModel> workspaces,
-    List<PageRouteInfo>? children,
-  }) : super(
-         HomeViewRoute.name,
-         args: HomeViewRouteArgs(key: key, workspaces: workspaces),
-         initialChildren: children,
-       );
+class HomeViewRoute extends PageRouteInfo<void> {
+  const HomeViewRoute({List<PageRouteInfo>? children})
+    : super(HomeViewRoute.name, initialChildren: children);
 
   static const String name = 'HomeViewRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<HomeViewRouteArgs>();
-      return HomeView(key: args.key, workspaces: args.workspaces);
+      return const HomeView();
     },
   );
-}
-
-class HomeViewRouteArgs {
-  const HomeViewRouteArgs({this.key, required this.workspaces});
-
-  final Key? key;
-
-  final List<WorkspaceListItemModel> workspaces;
-
-  @override
-  String toString() {
-    return 'HomeViewRouteArgs{key: $key, workspaces: $workspaces}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! HomeViewRouteArgs) return false;
-    return key == other.key &&
-        const ListEquality().equals(workspaces, other.workspaces);
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ const ListEquality().hash(workspaces);
 }
 
 /// generated route for

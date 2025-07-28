@@ -88,11 +88,18 @@ class AuthController extends ChangeNotifier {
         log(error.message);
         return some(error);
       },
-      (result) {
+      (result) async {
         final data = result.data;
         if (data is Map<String, dynamic>) {
           _user = UserModel.fromJson(data);
           notifyListeners();
+
+          await _secureStorageService.store(
+            dotenv.env['accessToken']!,
+            _user.access,
+          );
+
+          _networkService.setToken("Bearer ${_user.access}");
           return none();
         }
         // TODO
@@ -119,10 +126,10 @@ class AuthController extends ChangeNotifier {
 
   Future<Option<FailureModel>> logout() async {
     try {
-      final token = _secureStorageService.get(dotenv.env["refreshToken"]!);
+      final token = await _secureStorageService.get(dotenv.env["refreshToken"]!);
 
       final result = await _networkService.post(
-        "/logout",
+        "/users/logout",
         data: {"refresh_token": token},
       );
 

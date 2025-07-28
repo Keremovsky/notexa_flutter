@@ -57,9 +57,7 @@ abstract class LoginViewState extends State<LoginView> {
               widget.onSuccess != null
                   ? widget.onSuccess!()
                   : mounted
-                  ? context.router.replaceAll([
-                      HomeViewRoute(workspaces: workspaces),
-                    ])
+                  ? context.router.replaceAll([HomeViewRoute()])
                   : null;
             },
           );

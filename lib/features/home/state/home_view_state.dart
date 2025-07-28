@@ -1,13 +1,24 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
+import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_item_model.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/auth/controller/auth_controller.dart';
 import 'package:flutter_mobile/features/home/view/home_view.dart';
 import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
 import 'package:flutter_mobile/router/router.dart';
+import 'package:fpdart/fpdart.dart' as fp;
 import 'package:provider/provider.dart';
 
 abstract class HomeViewState extends State<HomeView> {
+  late Future<fp.Either<FailureModel, List<WorkspaceListItemModel>>> future;
+
+  @override
+  void initState() {
+    super.initState();
+    future = context.read<WorkspaceController>().getWorkspaces();
+  }
+
   void onProfilePressed() {
     context.pushRoute(ProfileViewRoute());
   }

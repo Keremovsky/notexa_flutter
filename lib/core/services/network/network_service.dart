@@ -8,6 +8,7 @@ import 'package:flutter_mobile/core/constants/network_constants.dart';
 import 'package:flutter_mobile/core/extensions/network_extensions.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/services/connectivity/connectivity_service.dart';
+import 'package:flutter_mobile/core/services/network/interceptor/access_control_interceptor.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -26,6 +27,11 @@ class NetworkService implements INetworkService {
 
     setBaseUrl(dotenv.env['baseUrl']!);
     setHeader("Content-Type", "application/json");
+
+    // interceptor for controlling access token is expired
+    // if it is expired, fetch access token
+    _dio.interceptors.add(AccessControlInterceptor(dio: _dio));
+
     log("NetworkService initialized");
   }
 
