@@ -51,7 +51,6 @@ abstract class LoginViewState extends State<LoginView> {
 
           result.fold(
             (error) {
-              // TODO
               context.read<FeedbackUtil>().showSnackBar(context, error.message);
             },
             (workspaces) {

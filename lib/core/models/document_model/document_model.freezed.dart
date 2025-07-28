@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DocumentModel {
 
- int get id; String get name; List<int> get notes;
+ int get id; String get name; List<NoteModel> get notes;
 /// Create a copy of DocumentModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DocumentModelCopyWith<$Res>  {
   factory $DocumentModelCopyWith(DocumentModel value, $Res Function(DocumentModel) _then) = _$DocumentModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, List<int> notes
+ int id, String name, List<NoteModel> notes
 });
 
 
@@ -70,7 +70,7 @@ class _$DocumentModelCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,notes: null == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as List<int>,
+as List<NoteModel>,
   ));
 }
 
@@ -155,7 +155,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<int> notes)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<NoteModel> notes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DocumentModel() when $default != null:
 return $default(_that.id,_that.name,_that.notes);case _:
@@ -176,7 +176,7 @@ return $default(_that.id,_that.name,_that.notes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<int> notes)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<NoteModel> notes)  $default,) {final _that = this;
 switch (_that) {
 case _DocumentModel():
 return $default(_that.id,_that.name,_that.notes);case _:
@@ -196,7 +196,7 @@ return $default(_that.id,_that.name,_that.notes);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<int> notes)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<NoteModel> notes)?  $default,) {final _that = this;
 switch (_that) {
 case _DocumentModel() when $default != null:
 return $default(_that.id,_that.name,_that.notes);case _:
@@ -211,13 +211,13 @@ return $default(_that.id,_that.name,_that.notes);case _:
 @JsonSerializable()
 
 class _DocumentModel implements DocumentModel {
-  const _DocumentModel({required this.id, required this.name, required final  List<int> notes}): _notes = notes;
+  const _DocumentModel({required this.id, required this.name, required final  List<NoteModel> notes}): _notes = notes;
   factory _DocumentModel.fromJson(Map<String, dynamic> json) => _$DocumentModelFromJson(json);
 
 @override final  int id;
 @override final  String name;
- final  List<int> _notes;
-@override List<int> get notes {
+ final  List<NoteModel> _notes;
+@override List<NoteModel> get notes {
   if (_notes is EqualUnmodifiableListView) return _notes;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_notes);
@@ -257,7 +257,7 @@ abstract mixin class _$DocumentModelCopyWith<$Res> implements $DocumentModelCopy
   factory _$DocumentModelCopyWith(_DocumentModel value, $Res Function(_DocumentModel) _then) = __$DocumentModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, List<int> notes
+ int id, String name, List<NoteModel> notes
 });
 
 
@@ -279,7 +279,7 @@ class __$DocumentModelCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,notes: null == notes ? _self._notes : notes // ignore: cast_nullable_to_non_nullable
-as List<int>,
+as List<NoteModel>,
   ));
 }
 

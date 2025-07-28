@@ -45,12 +45,27 @@ class _HomeViewState extends HomeViewState {
             ),
           ),
           SizedBox(
+            height: context.screenHeight * 0.7,
             width: context.screenWidth * 0.5,
-            child: ListView.builder(
-              itemCount: 0,
-              itemBuilder: (context, index) {
-                return SizedBox();
-              },
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: widget.workspaces.length,
+                    itemBuilder: (context, index) {
+                      final workspace = widget.workspaces[index];
+
+                      return CustomButton(
+                        onPressed: () => onWorkspacePressed(workspace.id),
+                        child: Text(workspace.name),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(height: 10);
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],

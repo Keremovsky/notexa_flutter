@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/models/document_model/document_model.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
+import 'package:flutter_mobile/core/models/note_model/note_model.dart';
 import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_item_model.dart';
 import 'package:flutter_mobile/core/models/workspace_model/workspace_model.dart';
 import 'package:flutter_mobile/core/services/network/network_service.dart';
@@ -51,14 +52,27 @@ class WorkspaceController extends ChangeNotifier {
       (result) {
         final data = result.data;
         if (data is Map<String, dynamic>) {
-          List<DocumentModel> temp = [];
+          List<DocumentModel> tempDocs = [];
 
           final docs = data["docs"];
 
           for (final doc in docs) {
-            temp.add(DocumentModel.fromJson(doc));
+            List<NoteModel> tempNotes = [];
+
+            final notes = doc["notes"];
+
+            for (final note in notes) {
+              tempNotes.add(NoteModel.fromJson(note));
+            }
+            tempDocs.add(
+              DocumentModel(id: doc["id"], name: doc["name"], notes: tempNotes),
+            );
           }
-          _workspace = WorkspaceModel(id: id, name: data["name"], documents: temp);
+          _workspace = WorkspaceModel(
+            id: id,
+            name: data["name"],
+            documents: tempDocs,
+          );
           notifyListeners();
         }
 

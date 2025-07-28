@@ -11,7 +11,7 @@ _DocumentModel _$DocumentModelFromJson(Map<String, dynamic> json) =>
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       notes: (json['notes'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
+          .map((e) => NoteModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
