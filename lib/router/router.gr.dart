@@ -108,6 +108,22 @@ class LoginViewRouteArgs {
 }
 
 /// generated route for
+/// [ProfileView]
+class ProfileViewRoute extends PageRouteInfo<void> {
+  const ProfileViewRoute({List<PageRouteInfo>? children})
+    : super(ProfileViewRoute.name, initialChildren: children);
+
+  static const String name = 'ProfileViewRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ProfileView();
+    },
+  );
+}
+
+/// generated route for
 /// [RegisterView]
 class RegisterViewRoute extends PageRouteInfo<void> {
   const RegisterViewRoute({List<PageRouteInfo>? children})

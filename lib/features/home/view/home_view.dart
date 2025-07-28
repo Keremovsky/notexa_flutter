@@ -28,13 +28,15 @@ class _HomeViewState extends HomeViewState {
             child: Column(
               children: [
                 CustomButton(
-                  onPressed: () {},
+                  onPressed: onProfilePressed,
                   child: Text(LocaleKeys.goToProfile.tr()),
                 ),
+                SizedBox(height: 10),
                 CustomButton(
                   onPressed: onSettingsPressed,
                   child: Text(LocaleKeys.settings.tr()),
                 ),
+                SizedBox(height: 10),
                 CustomButton(
                   onPressed: onExitPressed,
                   child: Text(LocaleKeys.exitFromAccount.tr()),

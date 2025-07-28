@@ -7,6 +7,14 @@ import 'package:flutter_mobile/router/router.dart';
 import 'package:provider/provider.dart';
 
 abstract class HomeViewState extends State<HomeView> {
+  void onProfilePressed() {
+    context.pushRoute(ProfileViewRoute());
+  }
+
+  void onSettingsPressed() {
+    context.pushRoute(SettingsViewRoute());
+  }
+
   void onExitPressed() async {
     final result = await context.read<AuthController>().logout();
 
@@ -18,9 +26,5 @@ abstract class HomeViewState extends State<HomeView> {
         context.read<FeedbackUtil>().showSnackBar(context, error.message);
       },
     );
-  }
-
-  void onSettingsPressed() {
-    context.pushRoute(SettingsViewRoute());
   }
 }

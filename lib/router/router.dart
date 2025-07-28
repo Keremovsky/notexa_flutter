@@ -4,6 +4,7 @@ import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_i
 import 'package:flutter_mobile/features/auth/view/login_view.dart';
 import 'package:flutter_mobile/features/auth/view/register_view.dart';
 import 'package:flutter_mobile/features/home/view/home_view.dart';
+import 'package:flutter_mobile/features/home/view/profile_view.dart';
 import 'package:flutter_mobile/features/home/view/settings_view.dart';
 import 'package:flutter_mobile/features/workspace/view/workspace_view.dart';
 // ignore: deprecated_member_use
@@ -18,6 +19,7 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: LoginViewRoute.page, initial: true),
     AutoRoute(page: RegisterViewRoute.page),
     AutoRoute(page: HomeViewRoute.page),
+    AutoRoute(page: ProfileViewRoute.page),
     AutoRoute(page: SettingsViewRoute.page),
     AutoRoute(page: WorkspaceViewRoute.page),
   ];
