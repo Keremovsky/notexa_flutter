@@ -7,14 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/models/document_model/document_model.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_item_model.dart';
+import 'package:flutter_mobile/core/models/workspace_model/workspace_model.dart';
 import 'package:flutter_mobile/core/services/network/network_service.dart';
 import 'package:fpdart/fpdart.dart';
 
 class WorkspaceController extends ChangeNotifier {
   late NetworkService _networkService;
-  late List<DocumentModel> _documents;
+  late WorkspaceModel _workspace;
 
-  List<DocumentModel> get documents => _documents;
+  WorkspaceModel get workspace => _workspace;
 
   static final WorkspaceController _instance = WorkspaceController._init();
   factory WorkspaceController() => _instance;
@@ -23,7 +24,6 @@ class WorkspaceController extends ChangeNotifier {
     log("WorkspaceController initialized");
 
     _networkService = NetworkService();
-    _documents = [];
   }
 
   // WORKSPACE
@@ -58,7 +58,8 @@ class WorkspaceController extends ChangeNotifier {
           for (final doc in docs) {
             temp.add(DocumentModel.fromJson(doc));
           }
-          _documents = temp;
+          _workspace = WorkspaceModel(id: id, name: data["name"], documents: temp);
+          notifyListeners();
         }
 
         return Left(FailureModel.fail("Type of fetched data was wrong."));

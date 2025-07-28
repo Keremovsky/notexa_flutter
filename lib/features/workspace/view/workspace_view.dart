@@ -27,7 +27,7 @@ class _WorkspaceViewState extends WorkspaceViewState {
                 width: context.screenWidth * 0.25,
                 child: Consumer<WorkspaceController>(
                   builder: (context, value, _) {
-                    final docs = value.documents;
+                    final docs = value.workspace.documents;
                     return Expanded(
                       child: ListView.builder(
                         itemCount: docs.length,
