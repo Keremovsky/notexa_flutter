@@ -6,11 +6,9 @@ import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
 import 'package:flutter_mobile/core/components/custom_text_field.dart';
 import 'package:flutter_mobile/core/constants/colors_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
-import 'package:flutter_mobile/features/auth/controller/auth_controller.dart';
 import 'package:flutter_mobile/features/home/state/home_view_state.dart';
 import 'package:flutter_mobile/features/home/widgets/workspace_item.dart';
 import 'package:flutter_mobile/gen/locale_keys.g.dart';
-import 'package:provider/provider.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
@@ -36,9 +34,7 @@ class _HomeViewState extends HomeViewState {
                   children: [
                     TextButton(
                       onPressed: onProfilePressed,
-                      style: ButtonStyle(
-                        overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                      ),
+
                       child: Row(
                         children: [
                           Icon(Icons.man, size: 28),
@@ -50,9 +46,7 @@ class _HomeViewState extends HomeViewState {
                     SizedBox(height: 20),
                     TextButton(
                       onPressed: onSettingsPressed,
-                      style: ButtonStyle(
-                        overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                      ),
+
                       child: Row(
                         children: [
                           Icon(Icons.settings, size: 28),
@@ -64,9 +58,7 @@ class _HomeViewState extends HomeViewState {
                     SizedBox(height: 20),
                     TextButton(
                       onPressed: onExitPressed,
-                      style: ButtonStyle(
-                        overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                      ),
+
                       child: Row(
                         children: [
                           Icon(Icons.exit_to_app, size: 28),
@@ -161,7 +153,7 @@ class _HomeViewState extends HomeViewState {
 }
 
 class _FirstTitle extends StatelessWidget {
-  const _FirstTitle({super.key});
+  const _FirstTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +176,7 @@ class _FirstTitle extends StatelessWidget {
 }
 
 class _SecondTitle extends StatelessWidget {
-  const _SecondTitle({super.key});
+  const _SecondTitle();
 
   @override
   Widget build(BuildContext context) {

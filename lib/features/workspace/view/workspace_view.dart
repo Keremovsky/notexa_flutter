@@ -15,10 +15,13 @@ class _WorkspaceViewState extends WorkspaceViewState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(children: [ShelfPane()]),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+        child: Column(
+          children: [
+            Row(children: [ShelfPane()]),
+          ],
+        ),
       ),
     );
   }

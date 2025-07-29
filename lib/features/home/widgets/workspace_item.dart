@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/core/constants/colors_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_item_model.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
@@ -22,7 +21,8 @@ class WorkspaceItem extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           final result = await context.read<WorkspaceController>().getWorkspace(
-            workspace,
+            workspace.id,
+            workspace.name,
           );
 
           result.fold(
@@ -42,7 +42,7 @@ class WorkspaceItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
-            padding: const EdgeInsetsGeometry.symmetric(horizontal: 20),
+            padding: const EdgeInsetsGeometry.symmetric(horizontal: 25),
             child: SizedBox(
               child: Row(
                 children: [

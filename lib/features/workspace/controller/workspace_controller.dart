@@ -42,8 +42,8 @@ class WorkspaceController extends ChangeNotifier {
     );
   }
 
-  Future<Option<FailureModel>> getWorkspace(WorkspaceListItemModel model) async {
-    final result = await _networkService.get("/workspace/${model.id}");
+  Future<Option<FailureModel>> getWorkspace(int id, String name) async {
+    final result = await _networkService.get("/workspace/$id");
 
     return result.fold(
       (error) {
@@ -69,11 +69,7 @@ class WorkspaceController extends ChangeNotifier {
               DocumentModel(id: doc["id"], name: doc["name"], notes: tempNotes),
             );
           }
-          _workspace = WorkspaceModel(
-            id: model.id,
-            name: model.name,
-            documents: tempDocs,
-          );
+          _workspace = WorkspaceModel(id: id, name: name, documents: tempDocs);
           notifyListeners();
           return none();
         }
@@ -156,8 +152,9 @@ class WorkspaceController extends ChangeNotifier {
             log(error.message);
             return some(error);
           },
-          (_) {
+          (_) async {
             log("Uploading pdf file is successful");
+            await getWorkspace(_workspace.id, _workspace.name);
             return none();
           },
         );
@@ -180,6 +177,11 @@ class WorkspaceController extends ChangeNotifier {
         return some(error);
       },
       (result) {
+        _workspace = _workspace.copyWith(
+          documents: _workspace.documents.where((doc) => doc.id != docId).toList(),
+        );
+        notifyListeners();
+
         return none();
       },
     );
@@ -199,7 +201,8 @@ class WorkspaceController extends ChangeNotifier {
       (error) {
         return some(error);
       },
-      (result) {
+      (result) async {
+        await getWorkspace(_workspace.id, _workspace.name);
         return none();
       },
     );
@@ -213,6 +216,12 @@ class WorkspaceController extends ChangeNotifier {
         return some(error);
       },
       (result) {
+        final documents = _workspace.documents.map((doc) {
+          final notes = doc.notes.where((note) => note.id != noteId).toList();
+          return doc.copyWith(notes: notes);
+        }).toList();
+        _workspace = _workspace.copyWith(documents: documents);
+        notifyListeners();
         return none();
       },
     );

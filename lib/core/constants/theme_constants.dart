@@ -41,6 +41,7 @@ class ThemeConstants {
       foregroundColor: const WidgetStatePropertyAll(ColorConstants.blackText),
       elevation: const WidgetStatePropertyAll(0),
       splashFactory: NoSplash.splashFactory,
+      overlayColor: WidgetStatePropertyAll(Colors.transparent),
     ),
   );
 
@@ -59,6 +60,7 @@ class ThemeConstants {
       foregroundColor: const WidgetStatePropertyAll(ColorConstants.whiteText),
       elevation: const WidgetStatePropertyAll(0),
       splashFactory: NoSplash.splashFactory,
+      overlayColor: WidgetStatePropertyAll(Colors.transparent),
     ),
   );
 
