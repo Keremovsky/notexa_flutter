@@ -60,6 +60,7 @@
     "invalidPasswordLongLengthMessage": "Şifre 16 karakterden uzun olamaz.",
     "invalidUsernameShortLength": "Kullanıcı adı 5 karakterden kısa olamaz.",
     "invalidUsernameLongLength": "Kullanıcı adı 20 karakterden uzun olamaz.",
+    "invalidWorkspaceLongLength": "Çalışma ortamı adı 20 karakterden uzun olamaz.",
     "invalidPasswordConfirmMatch": "Her iki şifrenin de aynı olduğundan emin olun.",
     "invalidType": "Çekilen verinin tipi yanlış."
 }

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/components/custom_button.dart';
 import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
+import 'package:flutter_mobile/core/components/custom_text_field.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/home/state/home_view_state.dart';
 import 'package:flutter_mobile/gen/locale_keys.g.dart';
@@ -24,6 +25,8 @@ class _HomeViewState extends HomeViewState {
           SizedBox(
             width: context.screenWidth * 0.5,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomButton(
                   onPressed: onProfilePressed,
@@ -47,6 +50,23 @@ class _HomeViewState extends HomeViewState {
             width: context.screenWidth * 0.5,
             child: Column(
               children: [
+                Row(
+                  children: [
+                    CustomTextField(height: 40, width: 300, controller: controller),
+                    SizedBox(width: 5),
+                    CustomButton(
+                      onPressed: onCreateWorkspacePressed,
+                      height: 40,
+                      width: 40,
+                      style: ButtonStyle(
+                        padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                      ),
+                      child: const Icon(Icons.add),
+                    ),
+                  ],
+                ),
+                Divider(height: 20),
+                SizedBox(height: 5),
                 FutureBuilder(
                   future: future,
                   builder: (context, snapshot) {
@@ -67,7 +87,7 @@ class _HomeViewState extends HomeViewState {
                                 final workspace = workspaces[index];
 
                                 return CustomButton(
-                                  onPressed: () => onWorkspacePressed(workspace.id),
+                                  onPressed: () => onWorkspacePressed(workspace),
                                   child: Text(workspace.name),
                                 );
                               },

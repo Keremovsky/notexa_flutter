@@ -51,6 +51,7 @@ abstract class  LocaleKeys {
   static const invalidPasswordLongLengthMessage = 'invalidPasswordLongLengthMessage';
   static const invalidUsernameShortLength = 'invalidUsernameShortLength';
   static const invalidUsernameLongLength = 'invalidUsernameLongLength';
+  static const invalidWorkspaceLongLength = 'invalidWorkspaceLongLength';
   static const invalidPasswordConfirmMatch = 'invalidPasswordConfirmMatch';
   static const invalidType = 'invalidType';
 

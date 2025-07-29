@@ -42,12 +42,13 @@ class WorkspaceController extends ChangeNotifier {
     );
   }
 
-  Future<void> getWorkspace(int id) async {
+  Future<Option<FailureModel>> getWorkspace(int id, String name) async {
     final result = await _networkService.get("/workspace/$id");
 
-    result.fold(
+    return result.fold(
       (error) {
         log(error.message);
+        return some(error);
       },
       (result) {
         final data = result.data;
@@ -59,7 +60,7 @@ class WorkspaceController extends ChangeNotifier {
           for (final doc in docs) {
             List<NoteModel> tempNotes = [];
 
-            final notes = doc["notes"];
+            final notes = doc["notes"] ?? [];
 
             for (final note in notes) {
               tempNotes.add(NoteModel.fromJson(note));
@@ -68,15 +69,12 @@ class WorkspaceController extends ChangeNotifier {
               DocumentModel(id: doc["id"], name: doc["name"], notes: tempNotes),
             );
           }
-          _workspace = WorkspaceModel(
-            id: id,
-            name: data["name"],
-            documents: tempDocs,
-          );
+          _workspace = WorkspaceModel(id: id, name: name, documents: tempDocs);
           notifyListeners();
+          return none();
         }
 
-        return Left(FailureModel.fail("Type of fetched data was wrong."));
+        return some(FailureModel.fail("Type of fetched data was wrong."));
       },
     );
   }

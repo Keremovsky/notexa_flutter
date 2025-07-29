@@ -60,6 +60,7 @@
     "invalidPasswordLongLengthMessage": "Password can't be longer than 16 characters.",
     "invalidUsernameShortLength": "Username can't be shorter than 5 characters.",
     "invalidUsernameLongLength": "Username can't be longer than 20 characters.",
+    "invalidWorkspaceLongLength": "Workspace name can't be longer than 20 characters.",
     "invalidPasswordConfirmMatch": "Make sure both password fields are the same.",
     "invalidType": "Type of fetched data was wrong."
 }

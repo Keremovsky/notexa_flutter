@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/models/workspace_list_model/workspace_list_item_model.dart';
@@ -6,12 +7,15 @@ import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/auth/controller/auth_controller.dart';
 import 'package:flutter_mobile/features/home/view/home_view.dart';
 import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
+import 'package:flutter_mobile/gen/locale_keys.g.dart';
 import 'package:flutter_mobile/router/router.dart';
 import 'package:fpdart/fpdart.dart' as fp;
 import 'package:provider/provider.dart';
 
 abstract class HomeViewState extends State<HomeView> {
   late Future<fp.Either<FailureModel, List<WorkspaceListItemModel>>> future;
+
+  final TextEditingController controller = TextEditingController();
 
   @override
   void initState() {
@@ -40,11 +44,46 @@ abstract class HomeViewState extends State<HomeView> {
     );
   }
 
-  Future<void> onWorkspacePressed(int id) async {
-    await context.read<WorkspaceController>().getWorkspace(id);
-
-    if (mounted) {
-      context.pushRoute(WorkspaceViewRoute());
+  Future<void> onCreateWorkspacePressed() async {
+    if (controller.text.isEmpty || controller.text.length > 20) {
+      context.read<FeedbackUtil>().showSnackBar(
+        context,
+        LocaleKeys.invalidWorkspaceLongLength.tr(),
+      );
+      return;
     }
+    final result = await context.read<WorkspaceController>().createWorkspace(
+      controller.text,
+    );
+
+    result.fold(
+      () {
+        setState(() {
+          future = context.read<WorkspaceController>().getWorkspaces();
+        });
+      },
+      (error) {
+        // TODO
+        context.read<FeedbackUtil>().showSnackBar(context, error.message);
+      },
+    );
+  }
+
+  Future<void> onWorkspacePressed(WorkspaceListItemModel model) async {
+    final result = await context.read<WorkspaceController>().getWorkspace(
+      model.id,
+      model.name,
+    );
+
+    result.fold(
+      () {
+        if (mounted) {
+          context.pushRoute(WorkspaceViewRoute());
+        }
+      },
+      (error) {
+        context.read<FeedbackUtil>().showSnackBar(context, error.message);
+      },
+    );
   }
 }

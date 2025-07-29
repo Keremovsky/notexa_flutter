@@ -67,7 +67,7 @@ class AuthController extends ChangeNotifier {
       dotenv.env['refreshToken']!,
     );
 
-    // todo
+    // TODO
     if (refreshToken == null) {
       return some(FailureModel.fail(""));
     }
