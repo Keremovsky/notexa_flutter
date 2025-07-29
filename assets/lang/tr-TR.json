@@ -28,13 +28,13 @@
 
     "home": "Ana Sayfa",
     "welcome": "Hoşgeldiniz",
-    "goToProfile": "Profile Git",
+    "profile": "Profil",
 
     "settings": "Ayarlar",
     "changeTheme": "Temayı Değiştir",
     "english": "İngilizce",
     "turkish": "Türkçe",
-    "exitFromAccount": "Hesaptan Çıkış Yap",
+    "exit": "Çıkış",
     
     "cancel": "İptal",
     "Save": "Kaydet",

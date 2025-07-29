@@ -17,37 +17,40 @@ class WorkspaceItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final result = await context.read<WorkspaceController>().getWorkspace(
-          workspace,
-        );
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () async {
+          final result = await context.read<WorkspaceController>().getWorkspace(
+            workspace,
+          );
 
-        result.fold(
-          () {
-            context.pushRoute(WorkspaceViewRoute());
-          },
-          (error) {
-            context.read<FeedbackUtil>().showSnackBar(context, error.message);
-          },
-        );
-      },
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: ColorConstants.lightFilledButton,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Padding(
-          padding: const EdgeInsetsGeometry.symmetric(horizontal: 20),
-          child: SizedBox(
-            child: Row(
-              children: [
-                const Icon(Icons.work),
-                const Spacer(),
-                Text(workspace.name, style: context.displayLarge),
-              ],
+          result.fold(
+            () {
+              context.pushRoute(WorkspaceViewRoute());
+            },
+            (error) {
+              context.read<FeedbackUtil>().showSnackBar(context, error.message);
+            },
+          );
+        },
+        child: Container(
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(56, 149, 255, 0.671),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsetsGeometry.symmetric(horizontal: 20),
+            child: SizedBox(
+              child: Row(
+                children: [
+                  const Icon(Icons.work),
+                  const Spacer(),
+                  Text(workspace.name, style: context.displayLarge),
+                ],
+              ),
             ),
           ),
         ),

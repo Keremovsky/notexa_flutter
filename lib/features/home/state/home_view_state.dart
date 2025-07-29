@@ -45,7 +45,14 @@ abstract class HomeViewState extends State<HomeView> {
   }
 
   Future<void> onCreateWorkspacePressed() async {
-    if (controller.text.isEmpty || controller.text.length > 20) {
+    if (controller.text.isEmpty) {
+      context.read<FeedbackUtil>().showSnackBar(
+        context,
+        LocaleKeys.emptyFieldMessage.tr(),
+      );
+      return;
+    }
+    if (controller.text.length > 20) {
       context.read<FeedbackUtil>().showSnackBar(
         context,
         LocaleKeys.invalidWorkspaceLongLength.tr(),

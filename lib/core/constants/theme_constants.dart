@@ -26,6 +26,42 @@ class ThemeConstants {
     backgroundColor: ColorConstants.darkScaffoldBackground,
   );
 
+  static final lightTextButtonThemeData = TextButtonThemeData(
+    style: ButtonStyle(
+      side: const WidgetStatePropertyAll(BorderSide.none),
+      padding: const WidgetStatePropertyAll(
+        EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+      ),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+      textStyle: WidgetStatePropertyAll(
+        TextStyleConstants.displayLarge as TextStyle?,
+      ),
+      foregroundColor: const WidgetStatePropertyAll(ColorConstants.blackText),
+      elevation: const WidgetStatePropertyAll(0),
+      splashFactory: NoSplash.splashFactory,
+    ),
+  );
+
+  static final darkTextButtonThemeData = TextButtonThemeData(
+    style: ButtonStyle(
+      side: const WidgetStatePropertyAll(BorderSide.none),
+      padding: const WidgetStatePropertyAll(
+        EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+      ),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ),
+      textStyle: WidgetStatePropertyAll(
+        TextStyleConstants.displayLarge as TextStyle?,
+      ),
+      foregroundColor: const WidgetStatePropertyAll(ColorConstants.whiteText),
+      elevation: const WidgetStatePropertyAll(0),
+      splashFactory: NoSplash.splashFactory,
+    ),
+  );
+
   static final lightFilledButtonThemeData = FilledButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith<Color>(
@@ -42,7 +78,7 @@ class ThemeConstants {
         TextStyleConstants.displayLarge as TextStyle?,
       ),
       foregroundColor: const WidgetStatePropertyAll(ColorConstants.blackText),
-      elevation: const WidgetStatePropertyAll(0),
+      elevation: const WidgetStatePropertyAll(2),
     ),
   );
 
@@ -60,7 +96,7 @@ class ThemeConstants {
         TextStyleConstants.displayLarge as TextStyle?,
       ),
       foregroundColor: const WidgetStatePropertyAll(ColorConstants.whiteText),
-      elevation: const WidgetStatePropertyAll(0),
+      elevation: const WidgetStatePropertyAll(2),
     ),
   );
 

@@ -27,12 +27,12 @@ abstract class  LocaleKeys {
   static const confirm = 'confirm';
   static const home = 'home';
   static const welcome = 'welcome';
-  static const goToProfile = 'goToProfile';
+  static const profile = 'profile';
   static const settings = 'settings';
   static const changeTheme = 'changeTheme';
   static const english = 'english';
   static const turkish = 'turkish';
-  static const exitFromAccount = 'exitFromAccount';
+  static const exit = 'exit';
   static const cancel = 'cancel';
   static const Save = 'Save';
   static const details = 'details';

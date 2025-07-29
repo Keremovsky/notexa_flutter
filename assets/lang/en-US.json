@@ -28,13 +28,13 @@
 
     "home": "Home",
     "welcome": "Welcome",
-    "goToProfile": "Go to Profile",
+    "profile": "Profile",
 
     "settings": "Settings",
     "changeTheme": "Change Theme",
     "english": "English",
     "turkish": "Turkish",
-    "exitFromAccount": "Exit from Account",
+    "exit": "Exit",
 
     "cancel": "Cancel",
     "Save": "Save",
