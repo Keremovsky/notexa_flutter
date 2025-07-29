@@ -42,8 +42,8 @@ class WorkspaceController extends ChangeNotifier {
     );
   }
 
-  Future<Option<FailureModel>> getWorkspace(int id, String name) async {
-    final result = await _networkService.get("/workspace/$id");
+  Future<Option<FailureModel>> getWorkspace(WorkspaceListItemModel model) async {
+    final result = await _networkService.get("/workspace/${model.id}");
 
     return result.fold(
       (error) {
@@ -69,7 +69,11 @@ class WorkspaceController extends ChangeNotifier {
               DocumentModel(id: doc["id"], name: doc["name"], notes: tempNotes),
             );
           }
-          _workspace = WorkspaceModel(id: id, name: name, documents: tempDocs);
+          _workspace = WorkspaceModel(
+            id: model.id,
+            name: model.name,
+            documents: tempDocs,
+          );
           notifyListeners();
           return none();
         }

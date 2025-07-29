@@ -60,28 +60,11 @@ abstract class HomeViewState extends State<HomeView> {
       () {
         setState(() {
           future = context.read<WorkspaceController>().getWorkspaces();
+          controller.text = "";
         });
       },
       (error) {
         // TODO
-        context.read<FeedbackUtil>().showSnackBar(context, error.message);
-      },
-    );
-  }
-
-  Future<void> onWorkspacePressed(WorkspaceListItemModel model) async {
-    final result = await context.read<WorkspaceController>().getWorkspace(
-      model.id,
-      model.name,
-    );
-
-    result.fold(
-      () {
-        if (mounted) {
-          context.pushRoute(WorkspaceViewRoute());
-        }
-      },
-      (error) {
         context.read<FeedbackUtil>().showSnackBar(context, error.message);
       },
     );

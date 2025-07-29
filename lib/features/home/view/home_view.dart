@@ -6,6 +6,7 @@ import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
 import 'package:flutter_mobile/core/components/custom_text_field.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/home/state/home_view_state.dart';
+import 'package:flutter_mobile/features/home/widgets/workspace_item.dart';
 import 'package:flutter_mobile/gen/locale_keys.g.dart';
 
 @RoutePage()
@@ -52,7 +53,7 @@ class _HomeViewState extends HomeViewState {
               children: [
                 Row(
                   children: [
-                    CustomTextField(height: 40, width: 300, controller: controller),
+                    CustomTextField(height: 40, width: 240, controller: controller),
                     SizedBox(width: 5),
                     CustomButton(
                       onPressed: onCreateWorkspacePressed,
@@ -86,9 +87,13 @@ class _HomeViewState extends HomeViewState {
                               itemBuilder: (context, index) {
                                 final workspace = workspaces[index];
 
-                                return CustomButton(
-                                  onPressed: () => onWorkspacePressed(workspace),
-                                  child: Text(workspace.name),
+                                return Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: WorkspaceItem(
+                                    height: 60,
+                                    width: 280,
+                                    workspace: workspace,
+                                  ),
                                 );
                               },
                               separatorBuilder: (context, index) {

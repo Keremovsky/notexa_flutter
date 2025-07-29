@@ -15,6 +15,7 @@ class _ShelfPaneState extends ShelfPaneState {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: context.screenHeight,
       width: context.screenWidth * 0.2,
       child: Consumer<WorkspaceController>(
         builder: (context, value, _) {
