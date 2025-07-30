@@ -1,5 +1,6 @@
 import 'package:flutter_mobile/core/services/cache/cache_service.dart';
 import 'package:flutter_mobile/core/services/file/file_service.dart';
+import 'package:flutter_mobile/core/services/pdf/pdf_service.dart';
 import 'package:flutter_mobile/core/services/secure_storage/secure_storage_service.dart';
 import 'package:flutter_mobile/core/services/theme/theme_service.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
@@ -27,6 +28,7 @@ class AppProvider {
       ChangeNotifierProvider(create: (_) => ChatController()),
       ChangeNotifierProvider(create: (_) => WorkspaceController()),
       Provider(create: (_) => FeedbackUtil()),
+      Provider(create: (_) => PdfService()),
     ];
   }
 

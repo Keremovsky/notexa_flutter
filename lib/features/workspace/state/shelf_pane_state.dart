@@ -8,7 +8,11 @@ import 'package:flutter_mobile/router/router.dart';
 import 'package:provider/provider.dart';
 
 abstract class ShelfPaneState extends State<ShelfPane> {
-  SelectedItem selectedItem = SelectedItem(type: SelectedItemType.none, id: -1);
+  SelectedItem selectedItem = SelectedItem(
+    type: SelectedItemType.none,
+    id: -1,
+    name: "",
+  );
 
   void onDeleteWorkspacePressed() async {
     // TODO

@@ -169,6 +169,19 @@ class WorkspaceController extends ChangeNotifier {
     }
   }
 
+  Future<Either<FailureModel, List<int>>> getFileFromWorkspace(int id) async {
+    final result = await _networkService.getFile("/workspace/documents/$id/file");
+
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (data) {
+        return Right(data);
+      },
+    );
+  }
+
   Future<Option<FailureModel>> removeDocumentFromWorkspace(int docId) async {
     final result = await _networkService.delete("/workspace/documents/$docId");
 
@@ -191,10 +204,29 @@ class WorkspaceController extends ChangeNotifier {
 
   // NOTE
 
-  Future<Option<FailureModel>> addNoteToWorkspace(String title, int docId) async {
+  Future<Either<FailureModel, String>> getNoteFromWorkspace(int id) async {
+    final result = await _networkService.get("/workspace/notes/$id");
+
+    return result.fold(
+      (error) {
+        return Left(error);
+      },
+      (result) {
+        final data = result.data;
+
+        if (data is Map<String, dynamic>) {
+          return Right(data["content"]);
+        }
+
+        return Left(FailureModel.fail("Type of fetched data was wrong."));
+      },
+    );
+  }
+
+  Future<Option<FailureModel>> addNoteToWorkspace(String title, int id) async {
     final result = await _networkService.post(
       "/workspace/notes",
-      data: {"title": title, "doc": docId},
+      data: {"title": title, "doc": id},
     );
 
     return result.fold(
@@ -208,8 +240,8 @@ class WorkspaceController extends ChangeNotifier {
     );
   }
 
-  Future<Option<FailureModel>> removeNoteFromWorkspace(int noteId) async {
-    final result = await _networkService.delete("/workspace/notes/$noteId");
+  Future<Option<FailureModel>> removeNoteFromWorkspace(int id) async {
+    final result = await _networkService.delete("/workspace/notes/$id");
 
     return result.fold(
       (error) {
@@ -217,7 +249,7 @@ class WorkspaceController extends ChangeNotifier {
       },
       (result) {
         final documents = _workspace.documents.map((doc) {
-          final notes = doc.notes.where((note) => note.id != noteId).toList();
+          final notes = doc.notes.where((note) => note.id != id).toList();
           return doc.copyWith(notes: notes);
         }).toList();
         _workspace = _workspace.copyWith(documents: documents);
