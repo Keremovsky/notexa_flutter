@@ -32,7 +32,7 @@ class ShelfItem extends StatelessWidget {
                 : ColorConstants.shelfItemNotSelectedColor,
             borderRadius: BorderRadius.circular(15),
             child: Padding(
-              padding: const EdgeInsets.only(left: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Align(alignment: Alignment.centerLeft, child: child),
             ),
           ),

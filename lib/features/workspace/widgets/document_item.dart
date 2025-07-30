@@ -42,18 +42,29 @@ class DocumentItem extends StatelessWidget {
             children: [
               Text(document.name, style: context.displayLarge),
               Spacer(),
-              TextButton(
-                onPressed: () => _onNoteAdd(context, document.id),
-                style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
-                child: Icon(Icons.add, size: 20, color: ColorConstants.green),
+              SizedBox(
+                width: 25,
+                child: TextButton(
+                  onPressed: () => _onNoteAdd(context, document.id),
+                  style: ButtonStyle(
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                  ),
+                  child: Icon(Icons.add, size: 20, color: ColorConstants.green),
+                ),
               ),
-              TextButton(
-                onPressed: () => _onDocumentRemovePressed(context, document.id),
-                style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
-                child: Icon(
-                  Icons.remove_circle_outline,
-                  size: 20,
-                  color: ColorConstants.red,
+              SizedBox(width: 10),
+              SizedBox(
+                width: 25,
+                child: TextButton(
+                  onPressed: () => _onDocumentRemovePressed(context, document.id),
+                  style: ButtonStyle(
+                    padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                  ),
+                  child: Icon(
+                    Icons.remove_circle_outline,
+                    size: 20,
+                    color: ColorConstants.red,
+                  ),
                 ),
               ),
             ],
@@ -83,16 +94,21 @@ class DocumentItem extends StatelessWidget {
                     children: [
                       Text(note.title, style: context.displayLarge),
                       Spacer(),
-                      TextButton(
-                        onPressed: () =>
-                            _onNoteRemovePressed(context, document.notes[index].id),
-                        style: ButtonStyle(
-                          padding: WidgetStatePropertyAll(EdgeInsets.zero),
-                        ),
-                        child: Icon(
-                          Icons.remove_circle_outline,
-                          size: 20,
-                          color: ColorConstants.red,
+                      SizedBox(
+                        width: 25,
+                        child: TextButton(
+                          onPressed: () => _onNoteRemovePressed(
+                            context,
+                            document.notes[index].id,
+                          ),
+                          style: ButtonStyle(
+                            padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                          ),
+                          child: Icon(
+                            Icons.remove_circle_outline,
+                            size: 20,
+                            color: ColorConstants.red,
+                          ),
                         ),
                       ),
                     ],
