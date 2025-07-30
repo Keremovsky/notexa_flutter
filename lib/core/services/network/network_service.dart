@@ -26,18 +26,12 @@ class NetworkService implements INetworkService {
     _connectivityService = ConnectivityService();
 
     setBaseUrl(dotenv.env['baseUrl']!);
-    setHeader("Content-Type", "application/json");
 
     // interceptor for controlling access token is expired
     // if it is expired, fetch access token
     _dio.interceptors.add(AccessControlInterceptor(dio: _dio));
 
     log("NetworkService initialized");
-  }
-
-  @override
-  void setBaseUrl(String baseUrl) {
-    _dio.options.baseUrl = baseUrl;
   }
 
   Stream<Either<FailureModel, String>> sseStream({
@@ -71,6 +65,26 @@ class NetworkService implements INetworkService {
       // TODO
       yield Left(FailureModel.fail("message"));
     }
+  }
+
+  @override
+  Future<Either<FailureModel, List<int>>> getFile(String url) async {
+    final result = await _dio.get(
+      url,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    if (!result.isSuccess) {
+      log(result.data.toString());
+      return Left(FailureModel.fail(result.data?["message"] as String? ?? ""));
+    }
+
+    return Right(result.data as List<int>);
+  }
+
+  @override
+  void setBaseUrl(String baseUrl) {
+    _dio.options.baseUrl = baseUrl;
   }
 
   @override
