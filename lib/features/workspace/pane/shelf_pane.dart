@@ -28,26 +28,38 @@ class _ShelfPaneState extends ShelfPaneState {
             children: [
               Row(
                 children: [
-                  Text(value.workspace.name, style: context.titleSmall),
+                  Text(
+                    value.workspace.name,
+                    style: context.titleSmall,
+                    overflow: TextOverflow.clip,
+                  ),
                   Spacer(),
-                  TextButton(
-                    onPressed: onDeleteWorkspacePressed,
-                    style: ButtonStyle(
-                      padding: WidgetStatePropertyAll(EdgeInsets.zero),
-                    ),
-                    child: Icon(
-                      Icons.remove_circle_outline,
-                      size: 24,
-                      color: ColorConstants.red,
+                  SizedBox(
+                    width: 25,
+                    child: TextButton(
+                      onPressed: onDeleteWorkspacePressed,
+                      style: ButtonStyle(
+                        padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                      ),
+                      child: Icon(
+                        Icons.remove_circle_outline,
+                        size: 24,
+                        color: ColorConstants.red,
+                      ),
                     ),
                   ),
-                  TextButton(
-                    onPressed: onDocumentUploadPressed,
-                    style: ButtonStyle(
-                      padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                  SizedBox(width: 10),
+                  SizedBox(
+                    width: 25,
+                    child: TextButton(
+                      onPressed: onDocumentUploadPressed,
+                      style: ButtonStyle(
+                        padding: WidgetStatePropertyAll(EdgeInsets.zero),
+                      ),
+                      child: Icon(Icons.upload, size: 24),
                     ),
-                    child: Icon(Icons.upload, size: 24),
                   ),
+                  SizedBox(width: 12),
                 ],
               ),
               Divider(height: 20),
