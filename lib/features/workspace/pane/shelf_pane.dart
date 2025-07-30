@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/constants/colors_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
+import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/state/shelf_pane_state.dart';
 import 'package:flutter_mobile/features/workspace/widgets/document_item.dart';
 import 'package:provider/provider.dart';
@@ -55,11 +56,35 @@ class _ShelfPaneState extends ShelfPaneState {
                   itemCount: docs.length,
                   itemBuilder: (context, index) {
                     final doc = docs[index];
+
                     return DocumentItem(
-                      isSelected: false,
+                      selectedItem: selectedItem,
                       document: doc,
-                      onDocumentPressed: () {},
-                      onNotePressed: () {},
+                      onDocumentPressed: () {
+                        if (selectedItem.id == doc.id &&
+                            selectedItem.type == SelectedItemType.document) {
+                          return;
+                        }
+
+                        setState(() {
+                          selectedItem = SelectedItem(
+                            type: SelectedItemType.document,
+                            id: doc.id,
+                          );
+                        });
+                      },
+                      onNotePressed: (int id) {
+                        if (selectedItem.id == id &&
+                            selectedItem.type == SelectedItemType.note) {
+                          return;
+                        }
+                        setState(() {
+                          selectedItem = SelectedItem(
+                            type: SelectedItemType.note,
+                            id: id,
+                          );
+                        });
+                      },
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) {

@@ -2,11 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
+import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/pane/shelf_pane.dart';
 import 'package:flutter_mobile/router/router.dart';
 import 'package:provider/provider.dart';
 
 abstract class ShelfPaneState extends State<ShelfPane> {
+  SelectedItem selectedItem = SelectedItem(type: SelectedItemType.none, id: -1);
+
   void onDeleteWorkspacePressed() async {
     // TODO
     final result = await context.read<FeedbackUtil>().showMessageBox(

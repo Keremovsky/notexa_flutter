@@ -6,22 +6,23 @@ import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/core/models/document_model/document_model.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
+import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/widgets/shelf_item.dart';
 import 'package:provider/provider.dart';
 
 class DocumentItem extends StatelessWidget {
   final double? height;
   final double? width;
-  final bool isSelected;
+  final SelectedItem selectedItem;
   final DocumentModel document;
   final void Function() onDocumentPressed;
-  final void Function() onNotePressed;
+  final void Function(int) onNotePressed;
 
   const DocumentItem({
     super.key,
     this.height,
     this.width,
-    required this.isSelected,
+    required this.selectedItem,
     required this.document,
     required this.onDocumentPressed,
     required this.onNotePressed,
@@ -33,7 +34,9 @@ class DocumentItem extends StatelessWidget {
       children: [
         ShelfItem(
           height: 40,
-          isSelected: isSelected,
+          isSelected:
+              (selectedItem.type == SelectedItemType.document) &&
+              (selectedItem.id == document.id),
           onPressed: onDocumentPressed,
           child: Row(
             children: [
@@ -69,10 +72,13 @@ class DocumentItem extends StatelessWidget {
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 final note = document.notes[index];
+
                 return ShelfItem(
                   height: 40,
-                  isSelected: isSelected,
-                  onPressed: onNotePressed,
+                  isSelected:
+                      (selectedItem.type == SelectedItemType.note) &&
+                      (selectedItem.id == note.id),
+                  onPressed: () => onNotePressed(note.id),
                   child: Row(
                     children: [
                       Text(note.title, style: context.displayLarge),

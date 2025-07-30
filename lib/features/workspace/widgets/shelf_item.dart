@@ -29,9 +29,10 @@ class ShelfItem extends StatelessWidget {
           child: Material(
             color: isSelected
                 ? ColorConstants.lightBoxColor
-                : ColorConstants.lightInputAreaIcon,
+                : ColorConstants.shelfItemNotSelectedColor,
+            borderRadius: BorderRadius.circular(15),
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 12.0),
               child: Align(alignment: Alignment.centerLeft, child: child),
             ),
           ),

@@ -40,6 +40,8 @@ class ColorConstants {
 
   static const darkGreyTextColor = Color.fromRGBO(102, 102, 102, 1);
 
+  static const shelfItemNotSelectedColor = Color.fromRGBO(167, 167, 167, 1);
+
   static const darkBoxColor = Color.fromRGBO(32, 32, 32, 1);
   static const lightBoxColor = Color.fromRGBO(220, 220, 220, 1);
 
