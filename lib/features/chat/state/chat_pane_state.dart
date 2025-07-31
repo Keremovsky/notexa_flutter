@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
 import 'package:flutter_mobile/features/chat/pane/chat_pane.dart';
 import 'package:provider/provider.dart';
@@ -10,11 +11,35 @@ abstract class ChatPaneState extends State<ChatPane> {
   @override
   void initState() {
     super.initState();
+    context.read<ChatController>().loadChatData(
+      widget.selectedItem.id,
+      widget.selectedItem.type.name,
+      "chat",
+    );
   }
 
-  void onChatModeChanged(String? value) {
+  @override
+  void didUpdateWidget(covariant ChatPane oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    context.read<ChatController>().loadChatData(
+      widget.selectedItem.id,
+      widget.selectedItem.type.name,
+      "chat",
+    );
+  }
+
+  void onChatModeChanged(String? value) async {
     if (value != null) {
-      // TODO
+      final result = await context.read<ChatController>().loadChatData(
+        widget.selectedItem.id,
+        widget.selectedItem.type.name,
+        value,
+      );
+
+      result.fold(() {}, (error) {
+        context.read<FeedbackUtil>().showSnackBar(context, error.message);
+      });
     }
   }
 

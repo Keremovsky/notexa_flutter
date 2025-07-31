@@ -5,10 +5,13 @@ import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
 import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 import 'package:flutter_mobile/features/chat/state/chat_pane_state.dart';
 import 'package:flutter_mobile/features/chat/widget/chat_bubble.dart';
+import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:provider/provider.dart';
 
 class ChatPane extends StatefulWidget {
-  const ChatPane({super.key});
+  final SelectedItem selectedItem;
+
+  const ChatPane({super.key, required this.selectedItem});
 
   @override
   ChatPaneState createState() => _ChatPaneState();
@@ -18,7 +21,7 @@ class _ChatPaneState extends ChatPaneState {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: Column(
         children: [
           CustomDropdownButtonFormField(
@@ -27,6 +30,7 @@ class _ChatPaneState extends ChatPaneState {
             onChanged: onChatModeChanged,
             onSaved: (_) {},
             items: [
+              // TODO
               DropdownMenuItem(value: "role", child: Text("Role-play")),
               DropdownMenuItem(value: "chat", child: Text("Chat")),
               DropdownMenuItem(value: "tutor", child: Text("Tutor")),

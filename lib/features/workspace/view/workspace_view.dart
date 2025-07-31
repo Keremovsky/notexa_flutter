@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
+import 'package:flutter_mobile/features/chat/pane/chat_pane.dart';
 import 'package:flutter_mobile/features/workspace/pane/content_pane.dart';
 import 'package:flutter_mobile/features/workspace/pane/shelf_pane.dart';
 import 'package:flutter_mobile/features/workspace/state/workspace_view_state.dart';
@@ -36,6 +37,7 @@ class _WorkspaceViewState extends WorkspaceViewState {
                 SizedBox(
                   height: context.screenHeight - 30,
                   width: context.screenWidth * 0.2,
+                  child: ChatPane(selectedItem: item),
                 ),
               ],
             ),

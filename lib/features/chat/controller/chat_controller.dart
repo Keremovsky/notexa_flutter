@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/services/network/network_service.dart';
 import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 import 'package:flutter_mobile/features/chat/models/chat_data_model.dart';
+import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
+import 'package:fpdart/fpdart.dart';
 
 class ChatController extends ChangeNotifier {
   late NetworkService _networkService;
@@ -22,9 +25,8 @@ class ChatController extends ChangeNotifier {
     _chatData = ChatData(mode: ChatMode.chat);
   }
 
-  ChatData decodeChatData(Map<String, dynamic> data) {
-    final messages = data["data"];
-    final mode = data["mode"];
+  ChatData decodeChatData(Map<String, dynamic> data, String mode) {
+    final messages = data["messages"];
 
     ChatMode chatMode = ChatMode.values.firstWhere((e) => e.name == mode);
     ChatData tempChatData = ChatData(mode: chatMode);
@@ -34,7 +36,7 @@ class ChatController extends ChangeNotifier {
 
       if (sender == ChatType.ai.name) {
         tempChatData.messages.add(ChatAIBubble(text: text));
-      } else if (sender == ChatType.user) {
+      } else if (sender == ChatType.user.name) {
         tempChatData.messages.add(ChatUserBubble(text: text));
       } else {
         // TODO
@@ -44,17 +46,26 @@ class ChatController extends ChangeNotifier {
     return tempChatData;
   }
 
-  Future<void> loadChatData(int id) async {
-    final result = await _networkService.get("/chat/$id");
+  Future<Option<FailureModel>> loadChatData(int id, String type, String mode) async {
+    if (type == SelectedItemType.none.name) return none();
 
-    result.fold(
+    final result = await _networkService.get("/chat/$id?tp=$type&mode=$mode");
+
+    return result.fold(
       (error) {
-        // TODO
         log(error.message);
+        return some(error);
       },
-      (data) {
-        _chatData = decodeChatData(data.data!);
-        notifyListeners();
+      (result) {
+        final data = result.data;
+
+        if (data is Map<String, dynamic>) {
+          _chatData = decodeChatData(result.data!, mode);
+          notifyListeners();
+          return none();
+        }
+
+        return some(FailureModel.fail("Type of fetched data was wrong."));
       },
     );
   }
