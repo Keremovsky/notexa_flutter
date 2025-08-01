@@ -27,6 +27,7 @@ class _ChatPaneState extends ChatPaneState {
           CustomDropdownButtonFormField(
             height: 40,
             width: 140,
+            value: chatMode,
             onChanged: onChatModeChanged,
             onSaved: (_) {},
             items: [
@@ -78,6 +79,7 @@ class _ChatPaneState extends ChatPaneState {
                       hintText: "Send a message...",
                       border: OutlineInputBorder(),
                     ),
+                    enabled: widget.selectedItem.type != SelectedItemType.none,
                   ),
                 ),
                 const SizedBox(width: 8),

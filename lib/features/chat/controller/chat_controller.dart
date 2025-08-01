@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/core/models/chat_input_model/chat_input_model.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/services/network/network_service.dart';
 import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
@@ -70,11 +71,13 @@ class ChatController extends ChangeNotifier {
     );
   }
 
-  Stream<String> sendPrompt(String prompt) async* {
-    final data = {"prompt": prompt};
-    final stream = _networkService.sseStream(url: "/chat/stream", data: data);
+  Stream<String> sendPrompt(ChatInputModel chatInput) async* {
+    final stream = _networkService.sseStream(
+      url: "/chat/stream",
+      data: chatInput.toJson(),
+    );
 
-    chatData.messages.add(ChatUserBubble(text: prompt));
+    chatData.messages.add(ChatUserBubble(text: chatInput.prompt));
 
     final newChat = ChatAIBubble(text: "");
     chatData.messages.add(newChat);
