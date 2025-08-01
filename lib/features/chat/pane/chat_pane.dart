@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/core/components/custom_button.dart';
 import 'package:flutter_mobile/core/components/custom_dropdown_button.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
@@ -24,17 +25,23 @@ class _ChatPaneState extends ChatPaneState {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         children: [
-          CustomDropdownButtonFormField(
-            height: 40,
-            width: 140,
-            value: chatMode,
-            onChanged: onChatModeChanged,
-            onSaved: (_) {},
-            items: [
-              // TODO
-              DropdownMenuItem(value: "role", child: Text("Role-play")),
-              DropdownMenuItem(value: "chat", child: Text("Chat")),
-              DropdownMenuItem(value: "tutor", child: Text("Tutor")),
+          Row(
+            children: [
+              CustomDropdownButtonFormField(
+                height: 40,
+                width: 140,
+                value: chatMode,
+                onChanged: onChatModeChanged,
+                onSaved: (_) {},
+                items: [
+                  // TODO
+                  DropdownMenuItem(value: "role", child: Text("Role-play")),
+                  DropdownMenuItem(value: "chat", child: Text("Chat")),
+                  DropdownMenuItem(value: "tutor", child: Text("Tutor")),
+                ],
+              ),
+              Spacer(),
+              CustomButton(onPressed: onClearPressed, child: Icon(Icons.refresh)),
             ],
           ),
           SizedBox(height: 3),

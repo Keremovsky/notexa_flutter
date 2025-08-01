@@ -103,4 +103,30 @@ class ChatController extends ChangeNotifier {
       }
     }
   }
+
+  Future<Option<FailureModel>> clearChat(int id, String type, String mode) async {
+    if (type == SelectedItemType.none.name) return none();
+
+    final result = await _networkService.delete(
+      "/chat/clear/$id?tp=$type&mode=$mode",
+    );
+
+    return result.fold(
+      (error) {
+        log(error.message);
+        return some(error);
+      },
+      (result) {
+        final data = result.data;
+
+        if (data is Map<String, dynamic>) {
+          _chatData = ChatData(mode: _chatData.mode);
+          notifyListeners();
+          return none();
+        }
+
+        return some(FailureModel.fail("Type of fetched data was wrong."));
+      },
+    );
+  }
 }

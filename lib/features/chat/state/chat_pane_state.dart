@@ -86,4 +86,24 @@ abstract class ChatPaneState extends State<ChatPane> {
       );
     });
   }
+
+  void onClearPressed() async {
+    final isPermitted = await context.read<FeedbackUtil>().showMessageBox(
+      context,
+      "Are you sure?",
+      "If chat history is cleared, there is no turning back",
+    );
+
+    if (isPermitted != null && isPermitted && mounted) {
+      final result = await context.read<ChatController>().clearChat(
+        widget.selectedItem.id,
+        widget.selectedItem.type.name,
+        chatMode,
+      );
+
+      result.fold(() {}, (error) {
+        context.read<FeedbackUtil>().showSnackBar(context, error.message);
+      });
+    }
+  }
 }
