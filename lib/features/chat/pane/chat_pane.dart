@@ -29,7 +29,7 @@ class _ChatPaneState extends ChatPaneState {
             children: [
               CustomDropdownButtonFormField(
                 height: 40,
-                width: 140,
+                width: 125,
                 value: chatMode,
                 onChanged: onChatModeChanged,
                 onSaved: (_) {},
@@ -40,8 +40,34 @@ class _ChatPaneState extends ChatPaneState {
                   DropdownMenuItem(value: "tutor", child: Text("Tutor")),
                 ],
               ),
+              SizedBox(width: 5),
+              chatMode == "role"
+                  ? CustomDropdownButtonFormField(
+                      height: 40,
+                      width: 110,
+                      value: roleLevelMode,
+                      onChanged: onRoleLevelChanged,
+                      onSaved: (_) {},
+                      items: [
+                        // TODO
+                        DropdownMenuItem(value: "child", child: Text("Child")),
+                        DropdownMenuItem(value: "student", child: Text("Student")),
+                        DropdownMenuItem(value: "prof", child: Text("Prof")),
+                      ],
+                    )
+                  : SizedBox(),
               Spacer(),
-              CustomButton(onPressed: onClearPressed, child: Icon(Icons.refresh)),
+              CustomButton(
+                onPressed: onClearPressed,
+                width: 40,
+                height: 40,
+                style: ButtonStyle(
+                  padding: const WidgetStatePropertyAll(
+                    EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+                  ),
+                ),
+                child: Icon(Icons.refresh),
+              ),
             ],
           ),
           SizedBox(height: 3),

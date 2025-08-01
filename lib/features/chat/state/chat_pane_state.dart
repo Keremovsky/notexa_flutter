@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 abstract class ChatPaneState extends State<ChatPane> {
   String chatMode = "chat";
+  String roleLevelMode = "child";
 
   final TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -67,6 +68,14 @@ abstract class ChatPaneState extends State<ChatPane> {
           context.read<FeedbackUtil>().showSnackBar(context, error.message);
         },
       );
+    }
+  }
+
+  void onRoleLevelChanged(String? value) async {
+    if (value != null && value != roleLevelMode) {
+      setState(() {
+        roleLevelMode = value;
+      });
     }
   }
 
