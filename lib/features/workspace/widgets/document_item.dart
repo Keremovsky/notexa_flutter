@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/constants/colors_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/core/models/document_model/document_model.dart';
+import 'package:flutter_mobile/core/services/pdf/pdf_service.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
 import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
@@ -40,7 +41,15 @@ class DocumentItem extends StatelessWidget {
           onPressed: onDocumentPressed,
           child: Row(
             children: [
-              Text(document.name, style: context.displayLarge),
+              SizedBox(
+                width: context.screenWidth * 0.2 - 124,
+                child: Text(
+                  document.name,
+                  style: context.displayLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Spacer(),
               SizedBox(
                 width: 25,
@@ -56,7 +65,8 @@ class DocumentItem extends StatelessWidget {
               SizedBox(
                 width: 25,
                 child: TextButton(
-                  onPressed: () => _onDocumentRemovePressed(context, document.id),
+                  onPressed: () =>
+                      _onDocumentRemovePressed(context, document.id, document.name),
                   style: ButtonStyle(
                     padding: WidgetStatePropertyAll(EdgeInsets.zero),
                   ),
@@ -92,7 +102,15 @@ class DocumentItem extends StatelessWidget {
                   onPressed: () => onNotePressed(note.id),
                   child: Row(
                     children: [
-                      Text(note.title, style: context.displayLarge),
+                      SizedBox(
+                        width: context.screenWidth * 0.2 - 124,
+                        child: Text(
+                          note.title,
+                          style: context.displayLarge,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                       Spacer(),
                       SizedBox(
                         width: 25,
@@ -145,7 +163,11 @@ Future<void> _onNoteAdd(BuildContext context, int id) async {
   }
 }
 
-Future<void> _onDocumentRemovePressed(BuildContext context, int id) async {
+Future<void> _onDocumentRemovePressed(
+  BuildContext context,
+  int id,
+  String filename,
+) async {
   final result = await context.read<FeedbackUtil>().showMessageBox(
     context,
     "Are you sure?",
@@ -157,9 +179,14 @@ Future<void> _onDocumentRemovePressed(BuildContext context, int id) async {
         .read<WorkspaceController>()
         .removeDocumentFromWorkspace(id);
 
-    result.fold(() {}, (error) {
-      context.read<FeedbackUtil>().showSnackBar(context, error.message);
-    });
+    result.fold(
+      () async {
+        await context.read<PdfService>().removePdfFromCache(filename);
+      },
+      (error) {
+        context.read<FeedbackUtil>().showSnackBar(context, error.message);
+      },
+    );
   }
 }
 
