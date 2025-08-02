@@ -27,7 +27,7 @@ class AccessControlInterceptor extends Interceptor {
       return handler.next(options);
     }
 
-    final accessToken = await _secureStorageService.get(dotenv.env["refreshToken"]!);
+    final accessToken = await _secureStorageService.get(dotenv.env["accessToken"]!);
 
     if (JwtDecoder.isExpired(accessToken!)) {
       if (!_isRefreshing) {
