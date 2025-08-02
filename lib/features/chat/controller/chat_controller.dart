@@ -72,12 +72,13 @@ class ChatController extends ChangeNotifier {
   }
 
   Stream<String> sendPrompt(ChatInputModel chatInput) async* {
+    chatData.messages.add(ChatUserBubble(text: chatInput.prompt));
+    notifyListeners();
+
     final stream = _networkService.sseStream(
       url: "/chat/stream",
       data: chatInput.toJson(),
     );
-
-    chatData.messages.add(ChatUserBubble(text: chatInput.prompt));
 
     final newChat = ChatAIBubble(text: "");
     chatData.messages.add(newChat);
@@ -85,6 +86,11 @@ class ChatController extends ChangeNotifier {
     await for (final line in stream) {
       if (line.isLeft()) {
         log(line.getOrElse((error) => "unknown"));
+        chatData.messages.removeRange(
+          chatData.messages.length - 2,
+          chatData.messages.length,
+        );
+        notifyListeners();
       }
 
       final result = line.getOrElse((error) => '');
