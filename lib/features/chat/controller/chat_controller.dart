@@ -91,6 +91,7 @@ class ChatController extends ChangeNotifier {
           chatData.messages.length,
         );
         notifyListeners();
+        return;
       }
 
       final result = line.getOrElse((error) => '');

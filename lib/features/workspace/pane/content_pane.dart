@@ -19,13 +19,15 @@ class _ContentPaneState extends ContentPaneState {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: FutureBuilder(
+        key: ValueKey(
+          widget.selectedItem.id.toString() + widget.selectedItem.type.toString(),
+        ),
         future: future,
         builder: (context, snapshot) {
           final data = snapshot.data;
 
           if (data == null) {
             // TODO
-            print("WHHYYY NULLL");
             return SizedBox();
           }
 

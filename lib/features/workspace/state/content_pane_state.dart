@@ -34,6 +34,7 @@ abstract class ContentPaneState extends State<ContentPane> {
     SelectedItem selectedItem,
   ) async {
     if (selectedItem.type == SelectedItemType.none) {
+      print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
       return fp.Right(fp.Left(FailureModel.fail("")));
     }
 

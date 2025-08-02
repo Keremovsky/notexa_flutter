@@ -162,7 +162,7 @@ class AuthController extends ChangeNotifier {
       (result) async {
         final data = result.data;
         if (data is Map<String, dynamic>) {
-          final accessToken = data["access_token"];
+          final accessToken = data["access"];
 
           final userData = UserModel.fromJson({"accessToken": accessToken});
 

@@ -18,6 +18,7 @@ class DocumentItem extends StatelessWidget {
   final DocumentModel document;
   final void Function() onDocumentPressed;
   final void Function(int) onNotePressed;
+  final void Function() onItemRemoved;
 
   const DocumentItem({
     super.key,
@@ -27,6 +28,7 @@ class DocumentItem extends StatelessWidget {
     required this.document,
     required this.onDocumentPressed,
     required this.onNotePressed,
+    required this.onItemRemoved,
   });
 
   @override
@@ -65,8 +67,12 @@ class DocumentItem extends StatelessWidget {
               SizedBox(
                 width: 25,
                 child: TextButton(
-                  onPressed: () =>
-                      _onDocumentRemovePressed(context, document.id, document.name),
+                  onPressed: () => _onDocumentRemovePressed(
+                    context,
+                    document.id,
+                    document.name,
+                    onItemRemoved,
+                  ),
                   style: ButtonStyle(
                     padding: WidgetStatePropertyAll(EdgeInsets.zero),
                   ),
@@ -118,6 +124,7 @@ class DocumentItem extends StatelessWidget {
                           onPressed: () => _onNoteRemovePressed(
                             context,
                             document.notes[index].id,
+                            onItemRemoved,
                           ),
                           style: ButtonStyle(
                             padding: WidgetStatePropertyAll(EdgeInsets.zero),
@@ -167,6 +174,7 @@ Future<void> _onDocumentRemovePressed(
   BuildContext context,
   int id,
   String filename,
+  void Function() onItemRemoved,
 ) async {
   final result = await context.read<FeedbackUtil>().showMessageBox(
     context,
@@ -182,6 +190,7 @@ Future<void> _onDocumentRemovePressed(
     result.fold(
       () async {
         await context.read<PdfService>().removePdfFromCache(filename);
+        onItemRemoved();
       },
       (error) {
         context.read<FeedbackUtil>().showSnackBar(context, error.message);
@@ -190,7 +199,11 @@ Future<void> _onDocumentRemovePressed(
   }
 }
 
-Future<void> _onNoteRemovePressed(BuildContext context, int id) async {
+Future<void> _onNoteRemovePressed(
+  BuildContext context,
+  int id,
+  void Function() onItemRemoved,
+) async {
   final result = await context.read<FeedbackUtil>().showMessageBox(
     context,
     "Are you sure?",
@@ -202,8 +215,13 @@ Future<void> _onNoteRemovePressed(BuildContext context, int id) async {
       id,
     );
 
-    result.fold(() {}, (error) {
-      context.read<FeedbackUtil>().showSnackBar(context, error.message);
-    });
+    result.fold(
+      () {
+        onItemRemoved();
+      },
+      (error) {
+        context.read<FeedbackUtil>().showSnackBar(context, error.message);
+      },
+    );
   }
 }

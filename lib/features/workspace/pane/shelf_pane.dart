@@ -102,6 +102,16 @@ class _ShelfPaneState extends ShelfPaneState {
                       });
                       widget.onSelectedItemChanged(selectedItem);
                     },
+                    onItemRemoved: () {
+                      setState(() {
+                        selectedItem = SelectedItem(
+                          type: SelectedItemType.none,
+                          id: -1,
+                          name: "",
+                        );
+                      });
+                      widget.onSelectedItemChanged(selectedItem);
+                    },
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) {
