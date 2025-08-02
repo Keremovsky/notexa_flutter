@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile/core/models/chat_input_model/chat_input_model.dart';
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
 import 'package:flutter_mobile/features/chat/pane/chat_pane.dart';
@@ -110,21 +109,15 @@ abstract class ChatPaneState extends State<ChatPane> {
     }
   }
 
-  void sendMessage(String prompt) {
-    final ChatInputModel input = ChatInputModel(
-      id: widget.selectedItem.id,
-      prompt: prompt,
-      tp: widget.selectedItem.type.name,
-      mode: chatMode,
-    );
-
-    context.read<ChatController>().sendPrompt(input).listen((_) {
+  void sendMessage(String prompt) async {
+    final stream = context.read<ChatController>().sendPrompt(prompt);
+    await for (final _ in stream) {
       scrollController.animateTo(
         scrollController.position.maxScrollExtent + 60,
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeOut,
       );
-    });
+    }
   }
 
   void onClearPressed() async {

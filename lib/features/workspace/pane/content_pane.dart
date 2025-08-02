@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/state/content_pane_state.dart';
@@ -31,26 +32,30 @@ class _ContentPaneState extends ContentPaneState {
             return SizedBox();
           }
 
-          return data.fold(
-            (file) {
-              return SfPdfViewer.file(file);
-            },
-            (right) {
-              return right.fold(
-                (error) {
-                  if (error.message.isEmpty) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return data.fold(
+              (file) {
+                return SfPdfViewer.file(file);
+              },
+              (right) {
+                return right.fold(
+                  (error) {
+                    if (error.message.isEmpty) {
+                      // TODO
+                      return Text("Please select a note or document :)");
+                    }
+                    return Text(error.message);
+                  },
+                  (content) {
                     // TODO
-                    return Text("Please select a note or document :)");
-                  }
-                  return Text(error.message);
-                },
-                (content) {
-                  // TODO
-                  return Text(content, style: context.displayLarge);
-                },
-              );
-            },
-          );
+                    return Text(content, style: context.displayLarge);
+                  },
+                );
+              },
+            );
+          }
+
+          return CustomLoadingIndicator();
         },
       ),
     );

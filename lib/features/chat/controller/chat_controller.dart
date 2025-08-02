@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_mobile/core/models/chat_input_model/chat_input_model.dart';
 import 'package:flutter_mobile/core/models/failure_model/failure_model.dart';
 import 'package:flutter_mobile/core/services/network/network_service.dart';
@@ -9,10 +11,17 @@ import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 import 'package:flutter_mobile/features/chat/models/chat_data_model.dart';
 import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:fpdart/fpdart.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/status.dart' as status;
 
 class ChatController extends ChangeNotifier {
   late NetworkService _networkService;
   late ChatData _chatData;
+
+  WebSocketChannel? _channel;
+  bool _isInitialized = false;
+  ChatInputModel? _chatInitInput;
+  StreamController<String>? _messageController;
 
   ChatData get chatData => _chatData;
 
@@ -24,6 +33,60 @@ class ChatController extends ChangeNotifier {
 
     _networkService = NetworkService();
     _chatData = ChatData(mode: ChatMode.chat);
+  }
+
+  void initWebSocket(ChatInputModel input) {
+    _chatInitInput = input;
+    _isInitialized = true;
+    _messageController = StreamController<String>.broadcast();
+
+    final uri = Uri.parse("ws://${dotenv.env['baseUrl']!.substring(7)}/chat/stream");
+
+    _channel = WebSocketChannel.connect(uri);
+
+    _channel!.sink.add(jsonEncode(input.toJson()));
+
+    _channel!.stream.listen(
+      (message) {
+        _messageController?.add(message);
+      },
+      onError: (error) {
+        _messageController?.addError(error);
+      },
+      onDone: () {
+        _messageController?.close();
+      },
+    );
+  }
+
+  Stream<String> sendPrompt(String prompt) {
+    if (_channel == null || !_isInitialized || _chatInitInput == null) {
+      throw Exception("WebSocket not initialized. Call initWebSocket first.");
+    }
+
+    chatData.messages.add(ChatUserBubble(text: prompt));
+    final aiBubble = ChatAIBubble(text: "");
+    chatData.messages.add(aiBubble);
+    notifyListeners();
+
+    _channel!.sink.add(prompt);
+
+    return _messageController!.stream.map((token) {
+      aiBubble.text += token;
+      notifyListeners();
+      return token;
+    });
+  }
+
+  Future<void> closeWebSocket() async {
+    if (_channel != null) {
+      await _channel!.sink.close(status.normalClosure);
+      _messageController?.close();
+      _channel = null;
+      _messageController = null;
+      _chatInitInput = null;
+      _isInitialized = false;
+    }
   }
 
   ChatData decodeChatData(Map<String, dynamic> data, String mode) {
@@ -50,6 +113,9 @@ class ChatController extends ChangeNotifier {
   Future<Option<FailureModel>> loadChatData(int id, String type, String mode) async {
     if (type == SelectedItemType.none.name) return none();
 
+    await closeWebSocket();
+    initWebSocket(ChatInputModel(id: id, prompt: "", tp: type, mode: mode));
+
     final result = await _networkService.get("/chat/$id?tp=$type&mode=$mode");
 
     return result.fold(
@@ -69,46 +135,6 @@ class ChatController extends ChangeNotifier {
         return some(FailureModel.fail("Type of fetched data was wrong."));
       },
     );
-  }
-
-  Stream<String> sendPrompt(ChatInputModel chatInput) async* {
-    chatData.messages.add(ChatUserBubble(text: chatInput.prompt));
-    notifyListeners();
-
-    final stream = _networkService.sseStream(
-      url: "/chat/stream",
-      data: chatInput.toJson(),
-    );
-
-    final newChat = ChatAIBubble(text: "");
-    chatData.messages.add(newChat);
-
-    await for (final line in stream) {
-      if (line.isLeft()) {
-        log(line.getOrElse((error) => "unknown"));
-        chatData.messages.removeRange(
-          chatData.messages.length - 2,
-          chatData.messages.length,
-        );
-        notifyListeners();
-        return;
-      }
-
-      final result = line.getOrElse((error) => '');
-
-      if (result.startsWith('data: ')) {
-        final jsonPart = result.substring(6);
-        final decoded = jsonDecode(jsonPart);
-        final token = decoded['answer'];
-
-        if (token == '[END]') return;
-
-        newChat.text = "${newChat.text} $token";
-        notifyListeners();
-
-        yield token;
-      }
-    }
   }
 
   Future<Option<FailureModel>> clearChat(int id, String type, String mode) async {
