@@ -33,15 +33,10 @@ class _ChatPaneState extends ChatPaneState {
                 value: chatMode,
                 onChanged: onChatModeChanged,
                 onSaved: (_) {},
-                items: [
-                  // TODO
-                  DropdownMenuItem(value: "role", child: Text("Role-play")),
-                  DropdownMenuItem(value: "chat", child: Text("Chat")),
-                  DropdownMenuItem(value: "tutor", child: Text("Tutor")),
-                ],
+                items: modeList,
               ),
               SizedBox(width: 5),
-              chatMode == "role"
+              chatMode == "feynman"
                   ? CustomDropdownButtonFormField(
                       height: 40,
                       width: 110,

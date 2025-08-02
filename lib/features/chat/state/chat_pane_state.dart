@@ -3,11 +3,20 @@ import 'package:flutter_mobile/core/models/chat_input_model/chat_input_model.dar
 import 'package:flutter_mobile/core/utils/feedback_util.dart';
 import 'package:flutter_mobile/features/chat/controller/chat_controller.dart';
 import 'package:flutter_mobile/features/chat/pane/chat_pane.dart';
+import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:provider/provider.dart';
 
 abstract class ChatPaneState extends State<ChatPane> {
   String chatMode = "chat";
   String roleLevelMode = "child";
+  List<DropdownMenuItem<String>> modeList = [
+    DropdownMenuItem(value: "chat", child: Text("Chat")),
+    DropdownMenuItem(value: "role", child: Text("Role-play")),
+    DropdownMenuItem(value: "feynman", child: Text("Feynman")),
+    DropdownMenuItem(value: "debate", child: Text("Debate")),
+    DropdownMenuItem(value: "cases", child: Text("Case")),
+    DropdownMenuItem(value: "reflect", child: Text("Reflect")),
+  ];
 
   final TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
@@ -15,6 +24,17 @@ abstract class ChatPaneState extends State<ChatPane> {
   @override
   void initState() {
     super.initState();
+    if (widget.selectedItem.type == SelectedItemType.note) {
+      modeList.add(DropdownMenuItem(value: "editor", child: Text("Editor")));
+    } else {
+      if (chatMode == "editor") {
+        chatMode = "chat";
+      }
+      modeList.removeWhere((item) {
+        return item.value == "editor";
+      });
+    }
+
     context.read<ChatController>().loadChatData(
       widget.selectedItem.id,
       widget.selectedItem.type.name,
@@ -25,6 +45,17 @@ abstract class ChatPaneState extends State<ChatPane> {
   @override
   void didUpdateWidget(covariant ChatPane oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if (widget.selectedItem.type == SelectedItemType.note) {
+      modeList.add(DropdownMenuItem(value: "editor", child: Text("Editor")));
+    } else {
+      if (chatMode == "editor") {
+        chatMode = "chat";
+      }
+      modeList.removeWhere((item) {
+        return item.value == "editor";
+      });
+    }
 
     context.read<ChatController>().loadChatData(
       widget.selectedItem.id,

@@ -1,6 +1,6 @@
 import 'package:flutter_mobile/features/chat/models/chat_bubble_model.dart';
 
-enum ChatMode { chat, role, tutor }
+enum ChatMode { chat, role, feynman, debate, cases, reflect, editor }
 
 class ChatData {
   List<ChatBubble> messages;
