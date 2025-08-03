@@ -152,15 +152,14 @@ class DocumentItem extends StatelessWidget {
 }
 
 Future<void> _onNoteAdd(BuildContext context, int id) async {
-  final result = await context.read<FeedbackUtil>().showMessageBox(
+  final title = await context.read<FeedbackUtil>().showTextMessageBox(
     context,
-    "Are you sure?",
-    "Document will be deleted for forever. This action is not undone.",
+    "New Note",
   );
 
-  if (result != null && result) {
+  if (title != null && title != "" && context.mounted) {
     final result = await context.read<WorkspaceController>().addNoteToWorkspace(
-      "note",
+      title,
       id,
     );
 

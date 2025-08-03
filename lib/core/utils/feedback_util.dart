@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/components/custom_button.dart';
+import 'package:flutter_mobile/core/components/custom_text_field.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/gen/locale_keys.g.dart';
 
@@ -68,6 +69,39 @@ class FeedbackUtil {
             CustomButton(
               onPressed: () {
                 context.pop(true);
+              },
+              child: Text(LocaleKeys.approve.tr()),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<String?> showTextMessageBox(BuildContext context, String title) async {
+    TextEditingController controller = TextEditingController();
+
+    return showDialog<String?>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title, style: context.titleMedium),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[CustomTextField(controller: controller)],
+            ),
+          ),
+          actions: <Widget>[
+            CustomButton(
+              onPressed: () {
+                context.pop("");
+              },
+              child: Text(LocaleKeys.refuse.tr()),
+            ),
+            CustomButton(
+              onPressed: () {
+                context.pop(controller.text);
               },
               child: Text(LocaleKeys.approve.tr()),
             ),
