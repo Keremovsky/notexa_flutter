@@ -3,6 +3,7 @@ import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/state/content_pane_state.dart';
+import 'package:flutter_mobile/features/workspace/widgets/note_pane_view.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class ContentPane extends StatefulWidget {
@@ -47,8 +48,10 @@ class _ContentPaneState extends ContentPaneState {
                     return Text(error.message);
                   },
                   (content) {
-                    // TODO
-                    return Text(content, style: context.displayLarge);
+                    return NotePaneView(
+                      id: widget.selectedItem.id,
+                      content: content,
+                    );
                   },
                 );
               },

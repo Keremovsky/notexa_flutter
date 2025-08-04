@@ -200,8 +200,6 @@ class WorkspaceController extends ChangeNotifier {
     );
   }
 
-  // TODO: get document file from server
-
   // NOTE
 
   Future<Either<FailureModel, String>> getNoteFromWorkspace(int id) async {
@@ -254,6 +252,22 @@ class WorkspaceController extends ChangeNotifier {
         }).toList();
         _workspace = _workspace.copyWith(documents: documents);
         notifyListeners();
+        return none();
+      },
+    );
+  }
+
+  Future<Option<FailureModel>> updateNoteContent(int id, String content) async {
+    final result = await _networkService.put(
+      "/workspace/notes/$id",
+      data: {"content": content},
+    );
+
+    return result.fold(
+      (error) {
+        return some(error);
+      },
+      (result) {
         return none();
       },
     );
