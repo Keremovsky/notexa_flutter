@@ -12,6 +12,7 @@ abstract class ChatInputModel with _$ChatInputModel {
     required final String prompt,
     required final String tp,
     required final String mode,
+    final String? feynman,
   }) = _ChatInputModel;
 
   factory ChatInputModel.fromJson(Map<String, Object?> json) =>

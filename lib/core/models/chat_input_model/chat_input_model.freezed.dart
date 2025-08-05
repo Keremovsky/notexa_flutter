@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ChatInputModel implements DiagnosticableTreeMixin {
 
- int get id; String get prompt; String get tp; String get mode;
+ int get id; String get prompt; String get tp; String get mode; String? get feynman;
 /// Create a copy of ChatInputModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $ChatInputModelCopyWith<ChatInputModel> get copyWith => _$ChatInputModelCopyWith
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'ChatInputModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('prompt', prompt))..add(DiagnosticsProperty('tp', tp))..add(DiagnosticsProperty('mode', mode));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('prompt', prompt))..add(DiagnosticsProperty('tp', tp))..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('feynman', feynman));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatInputModel&&(identical(other.id, id) || other.id == id)&&(identical(other.prompt, prompt) || other.prompt == prompt)&&(identical(other.tp, tp) || other.tp == tp)&&(identical(other.mode, mode) || other.mode == mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatInputModel&&(identical(other.id, id) || other.id == id)&&(identical(other.prompt, prompt) || other.prompt == prompt)&&(identical(other.tp, tp) || other.tp == tp)&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.feynman, feynman) || other.feynman == feynman));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,prompt,tp,mode);
+int get hashCode => Object.hash(runtimeType,id,prompt,tp,mode,feynman);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ChatInputModel(id: $id, prompt: $prompt, tp: $tp, mode: $mode)';
+  return 'ChatInputModel(id: $id, prompt: $prompt, tp: $tp, mode: $mode, feynman: $feynman)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $ChatInputModelCopyWith<$Res>  {
   factory $ChatInputModelCopyWith(ChatInputModel value, $Res Function(ChatInputModel) _then) = _$ChatInputModelCopyWithImpl;
 @useResult
 $Res call({
- int id, String prompt, String tp, String mode
+ int id, String prompt, String tp, String mode, String? feynman
 });
 
 
@@ -71,13 +71,14 @@ class _$ChatInputModelCopyWithImpl<$Res>
 
 /// Create a copy of ChatInputModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? prompt = null,Object? tp = null,Object? mode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? prompt = null,Object? tp = null,Object? mode = null,Object? feynman = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,prompt: null == prompt ? _self.prompt : prompt // ignore: cast_nullable_to_non_nullable
 as String,tp: null == tp ? _self.tp : tp // ignore: cast_nullable_to_non_nullable
 as String,mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as String,
+as String,feynman: freezed == feynman ? _self.feynman : feynman // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -162,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String prompt,  String tp,  String mode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String prompt,  String tp,  String mode,  String? feynman)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ChatInputModel() when $default != null:
-return $default(_that.id,_that.prompt,_that.tp,_that.mode);case _:
+return $default(_that.id,_that.prompt,_that.tp,_that.mode,_that.feynman);case _:
   return orElse();
 
 }
@@ -183,10 +184,10 @@ return $default(_that.id,_that.prompt,_that.tp,_that.mode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String prompt,  String tp,  String mode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String prompt,  String tp,  String mode,  String? feynman)  $default,) {final _that = this;
 switch (_that) {
 case _ChatInputModel():
-return $default(_that.id,_that.prompt,_that.tp,_that.mode);case _:
+return $default(_that.id,_that.prompt,_that.tp,_that.mode,_that.feynman);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +204,10 @@ return $default(_that.id,_that.prompt,_that.tp,_that.mode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String prompt,  String tp,  String mode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String prompt,  String tp,  String mode,  String? feynman)?  $default,) {final _that = this;
 switch (_that) {
 case _ChatInputModel() when $default != null:
-return $default(_that.id,_that.prompt,_that.tp,_that.mode);case _:
+return $default(_that.id,_that.prompt,_that.tp,_that.mode,_that.feynman);case _:
   return null;
 
 }
@@ -218,13 +219,14 @@ return $default(_that.id,_that.prompt,_that.tp,_that.mode);case _:
 @JsonSerializable()
 
 class _ChatInputModel with DiagnosticableTreeMixin implements ChatInputModel {
-  const _ChatInputModel({required this.id, required this.prompt, required this.tp, required this.mode});
+  const _ChatInputModel({required this.id, required this.prompt, required this.tp, required this.mode, this.feynman});
   factory _ChatInputModel.fromJson(Map<String, dynamic> json) => _$ChatInputModelFromJson(json);
 
 @override final  int id;
 @override final  String prompt;
 @override final  String tp;
 @override final  String mode;
+@override final  String? feynman;
 
 /// Create a copy of ChatInputModel
 /// with the given fields replaced by the non-null parameter values.
@@ -240,21 +242,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'ChatInputModel'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('prompt', prompt))..add(DiagnosticsProperty('tp', tp))..add(DiagnosticsProperty('mode', mode));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('prompt', prompt))..add(DiagnosticsProperty('tp', tp))..add(DiagnosticsProperty('mode', mode))..add(DiagnosticsProperty('feynman', feynman));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatInputModel&&(identical(other.id, id) || other.id == id)&&(identical(other.prompt, prompt) || other.prompt == prompt)&&(identical(other.tp, tp) || other.tp == tp)&&(identical(other.mode, mode) || other.mode == mode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatInputModel&&(identical(other.id, id) || other.id == id)&&(identical(other.prompt, prompt) || other.prompt == prompt)&&(identical(other.tp, tp) || other.tp == tp)&&(identical(other.mode, mode) || other.mode == mode)&&(identical(other.feynman, feynman) || other.feynman == feynman));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,prompt,tp,mode);
+int get hashCode => Object.hash(runtimeType,id,prompt,tp,mode,feynman);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ChatInputModel(id: $id, prompt: $prompt, tp: $tp, mode: $mode)';
+  return 'ChatInputModel(id: $id, prompt: $prompt, tp: $tp, mode: $mode, feynman: $feynman)';
 }
 
 
@@ -265,7 +267,7 @@ abstract mixin class _$ChatInputModelCopyWith<$Res> implements $ChatInputModelCo
   factory _$ChatInputModelCopyWith(_ChatInputModel value, $Res Function(_ChatInputModel) _then) = __$ChatInputModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String prompt, String tp, String mode
+ int id, String prompt, String tp, String mode, String? feynman
 });
 
 
@@ -282,13 +284,14 @@ class __$ChatInputModelCopyWithImpl<$Res>
 
 /// Create a copy of ChatInputModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? prompt = null,Object? tp = null,Object? mode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? prompt = null,Object? tp = null,Object? mode = null,Object? feynman = freezed,}) {
   return _then(_ChatInputModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,prompt: null == prompt ? _self.prompt : prompt // ignore: cast_nullable_to_non_nullable
 as String,tp: null == tp ? _self.tp : tp // ignore: cast_nullable_to_non_nullable
 as String,mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
-as String,
+as String,feynman: freezed == feynman ? _self.feynman : feynman // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

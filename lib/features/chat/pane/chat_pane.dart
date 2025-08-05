@@ -45,9 +45,15 @@ class _ChatPaneState extends ChatPaneState {
                       onSaved: (_) {},
                       items: [
                         // TODO
-                        DropdownMenuItem(value: "child", child: Text("Child")),
-                        DropdownMenuItem(value: "student", child: Text("Student")),
-                        DropdownMenuItem(value: "prof", child: Text("Prof")),
+                        DropdownMenuItem(
+                          value: "feynman_child",
+                          child: Text("Child"),
+                        ),
+                        DropdownMenuItem(
+                          value: "feynman_student",
+                          child: Text("Student"),
+                        ),
+                        DropdownMenuItem(value: "feynman_prof", child: Text("Prof")),
                       ],
                     )
                   : SizedBox(),

@@ -110,13 +110,23 @@ class ChatController extends ChangeNotifier {
     return tempChatData;
   }
 
-  Future<Option<FailureModel>> loadChatData(int id, String type, String mode) async {
+  Future<Option<FailureModel>> loadChatData(
+    int id,
+    String type,
+    String mode, {
+    String? feynman,
+  }) async {
     if (type == SelectedItemType.none.name) return none();
 
     await closeWebSocket();
-    initWebSocket(ChatInputModel(id: id, prompt: "", tp: type, mode: mode));
+    initWebSocket(
+      ChatInputModel(id: id, prompt: "", tp: type, mode: mode, feynman: feynman),
+    );
 
-    final result = await _networkService.get("/chat/$id?tp=$type&mode=$mode");
+    final url = feynman != null
+        ? "/chat/$id?tp=$type&mode=$mode&feynman_level=$feynman"
+        : "/chat/$id?tp=$type&mode=$mode";
+    final result = await _networkService.get(url);
 
     return result.fold(
       (error) {
@@ -137,12 +147,18 @@ class ChatController extends ChangeNotifier {
     );
   }
 
-  Future<Option<FailureModel>> clearChat(int id, String type, String mode) async {
+  Future<Option<FailureModel>> clearChat(
+    int id,
+    String type,
+    String mode, {
+    String? feynman,
+  }) async {
     if (type == SelectedItemType.none.name) return none();
 
-    final result = await _networkService.delete(
-      "/chat/clear/$id?tp=$type&mode=$mode",
-    );
+    final url = feynman != null
+        ? "/chat/clear/$id?tp=$type&mode=$mode&feynman_level=$feynman"
+        : "/chat/clear/$id?tp=$type&mode=$mode";
+    final result = await _networkService.delete(url);
 
     return result.fold(
       (error) {

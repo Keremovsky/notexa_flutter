@@ -12,6 +12,7 @@ _ChatInputModel _$ChatInputModelFromJson(Map<String, dynamic> json) =>
       prompt: json['prompt'] as String,
       tp: json['tp'] as String,
       mode: json['mode'] as String,
+      feynman: json['feynman'] as String?,
     );
 
 Map<String, dynamic> _$ChatInputModelToJson(_ChatInputModel instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$ChatInputModelToJson(_ChatInputModel instance) =>
       'prompt': instance.prompt,
       'tp': instance.tp,
       'mode': instance.mode,
+      'feynman': instance.feynman,
     };

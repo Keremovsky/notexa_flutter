@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 abstract class ChatPaneState extends State<ChatPane> {
   String chatMode = "chat";
-  String roleLevelMode = "child";
+  String roleLevelMode = "feynman_child";
   List<DropdownMenuItem<String>> modeList = [
     DropdownMenuItem(value: "chat", child: Text("Chat")),
     DropdownMenuItem(value: "role", child: Text("Role-play")),
@@ -78,11 +78,18 @@ abstract class ChatPaneState extends State<ChatPane> {
 
   void onChatModeChanged(String? value) async {
     if (value != null && value != chatMode) {
-      final result = await context.read<ChatController>().loadChatData(
-        widget.selectedItem.id,
-        widget.selectedItem.type.name,
-        value,
-      );
+      final result = value == "feynman"
+          ? await context.read<ChatController>().loadChatData(
+              widget.selectedItem.id,
+              widget.selectedItem.type.name,
+              value,
+              feynman: roleLevelMode,
+            )
+          : await context.read<ChatController>().loadChatData(
+              widget.selectedItem.id,
+              widget.selectedItem.type.name,
+              value,
+            );
 
       result.fold(
         () {
@@ -103,9 +110,27 @@ abstract class ChatPaneState extends State<ChatPane> {
 
   void onRoleLevelChanged(String? value) async {
     if (value != null && value != roleLevelMode) {
-      setState(() {
-        roleLevelMode = value;
-      });
+      final result = await context.read<ChatController>().loadChatData(
+        widget.selectedItem.id,
+        widget.selectedItem.type.name,
+        chatMode,
+        feynman: value,
+      );
+
+      result.fold(
+        () {
+          setState(() {
+            roleLevelMode = value;
+          });
+
+          if (scrollController.hasClients) {
+            scrollController.jumpTo(scrollController.position.maxScrollExtent);
+          }
+        },
+        (error) {
+          context.read<FeedbackUtil>().showSnackBar(context, error.message);
+        },
+      );
     }
   }
 
@@ -128,11 +153,18 @@ abstract class ChatPaneState extends State<ChatPane> {
     );
 
     if (isPermitted != null && isPermitted && mounted) {
-      final result = await context.read<ChatController>().clearChat(
-        widget.selectedItem.id,
-        widget.selectedItem.type.name,
-        chatMode,
-      );
+      final result = chatMode == "feynman"
+          ? await context.read<ChatController>().clearChat(
+              widget.selectedItem.id,
+              widget.selectedItem.type.name,
+              chatMode,
+              feynman: roleLevelMode,
+            )
+          : await context.read<ChatController>().clearChat(
+              widget.selectedItem.id,
+              widget.selectedItem.type.name,
+              chatMode,
+            );
 
       result.fold(() {}, (error) {
         context.read<FeedbackUtil>().showSnackBar(context, error.message);

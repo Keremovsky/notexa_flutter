@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
-import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/state/content_pane_state.dart';
 import 'package:flutter_mobile/features/workspace/widgets/note_pane_view.dart';
