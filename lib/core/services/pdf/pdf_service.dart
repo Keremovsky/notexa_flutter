@@ -46,8 +46,7 @@ class PdfService implements IPdfService {
     if (isFileExist) {
       return none();
     }
-    // TODO
-    return some(FailureModel.fail(""));
+    return some(FailureModel.fail("File doesn't exist."));
   }
 
   @override
@@ -65,7 +64,6 @@ class PdfService implements IPdfService {
       if (!isRemoved) return none();
       return some(FailureModel.fail(""));
     }
-    // TODO
-    return some(FailureModel.fail(""));
+    return some(FailureModel.fail("File doesn't exist."));
   }
 }

@@ -65,7 +65,7 @@ class WorkspaceItem extends StatelessWidget {
                         final result = await context.read<FeedbackUtil>().showMessageBox(
                           context,
                           "Are you sure?",
-                          "Workspace will be deleted for forever. This action is not undone.",
+                          "Workspace will be deleted for forever. This action cannot be undone.",
                         );
 
                         if (result != null && result && context.mounted) {

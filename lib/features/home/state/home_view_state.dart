@@ -71,7 +71,6 @@ abstract class HomeViewState extends State<HomeView> {
         });
       },
       (error) {
-        // TODO
         context.read<FeedbackUtil>().showSnackBar(context, error.message);
       },
     );

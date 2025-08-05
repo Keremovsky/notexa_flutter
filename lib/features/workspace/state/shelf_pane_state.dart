@@ -15,14 +15,13 @@ abstract class ShelfPaneState extends State<ShelfPane> {
   );
 
   void onDeleteWorkspacePressed() async {
-    // TODO
     final result = await context.read<FeedbackUtil>().showMessageBox(
       context,
       "Are you sure?",
-      "Workspace will be deleted for forever. This action is not undone.",
+      "Workspace will be deleted for forever. This action cannot be undone.",
     );
 
-    if (result != null && result) {
+    if (result != null && result && mounted) {
       final currentWorkspaceId = context.read<WorkspaceController>().workspace.id;
 
       final result = await context.read<WorkspaceController>().removeWorkspace(

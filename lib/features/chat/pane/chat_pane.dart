@@ -44,7 +44,6 @@ class _ChatPaneState extends ChatPaneState {
                       onChanged: onRoleLevelChanged,
                       onSaved: (_) {},
                       items: [
-                        // TODO
                         DropdownMenuItem(
                           value: "feynman_child",
                           child: Text("Child"),

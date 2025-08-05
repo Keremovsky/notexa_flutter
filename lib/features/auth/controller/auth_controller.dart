@@ -67,9 +67,12 @@ class AuthController extends ChangeNotifier {
       dotenv.env['refreshToken']!,
     );
 
-    // TODO
     if (refreshToken == null) {
-      return some(FailureModel.fail(""));
+      return some(
+        FailureModel.fail(
+          "Refresh token is not cached. Please login into your account.",
+        ),
+      );
     }
 
     final isExpired = JwtDecoder.isExpired(refreshToken);
@@ -102,8 +105,7 @@ class AuthController extends ChangeNotifier {
           _networkService.setToken("Bearer ${_user.access}");
           return none();
         }
-        // TODO
-        return some(FailureModel.fail(""));
+        return some(FailureModel.fail("Type of fetched data was wrong."));
       },
     );
   }

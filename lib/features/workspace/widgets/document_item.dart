@@ -178,7 +178,7 @@ Future<void> _onDocumentRemovePressed(
   final result = await context.read<FeedbackUtil>().showMessageBox(
     context,
     "Are you sure?",
-    "Document will be deleted for forever. This action is not undone.",
+    "Document will be deleted for forever. This action cannot be undone.",
   );
 
   if (result != null && result && context.mounted) {
@@ -206,7 +206,7 @@ Future<void> _onNoteRemovePressed(
   final result = await context.read<FeedbackUtil>().showMessageBox(
     context,
     "Are you sure?",
-    "Document will be deleted for forever. This action is not undone.",
+    "Note will be deleted for forever. This action cannot be undone.",
   );
 
   if (result != null && result && context.mounted) {

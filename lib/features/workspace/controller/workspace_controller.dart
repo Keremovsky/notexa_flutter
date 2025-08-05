@@ -97,7 +97,6 @@ class WorkspaceController extends ChangeNotifier {
 
     return result.fold(
       (error) {
-        //TODO
         return Left(error);
       },
       (result) {
@@ -164,7 +163,6 @@ class WorkspaceController extends ChangeNotifier {
       }
     } else {
       log("File is not selected");
-      // TODO
       return some(FailureModel.fail("File not selected"));
     }
   }

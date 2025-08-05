@@ -103,7 +103,7 @@ class ChatController extends ChangeNotifier {
       } else if (sender == ChatType.user.name) {
         tempChatData.messages.add(ChatUserBubble(text: text));
       } else {
-        // TODO
+        // do nothing
       }
     }
 

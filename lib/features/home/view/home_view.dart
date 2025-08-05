@@ -109,8 +109,7 @@ class _HomeViewState extends HomeViewState {
                             data != null) {
                           return data.fold(
                             (error) {
-                              // TODO
-                              return Text("error");
+                              return Text(error.message);
                             },
                             (workspaces) {
                               return Expanded(

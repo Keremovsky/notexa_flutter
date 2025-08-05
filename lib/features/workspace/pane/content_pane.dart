@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile/core/components/custom_loading_indicator.dart';
+import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/workspace/models/selected_item_model.dart';
 import 'package:flutter_mobile/features/workspace/state/content_pane_state.dart';
 import 'package:flutter_mobile/features/workspace/widgets/note_pane_view.dart';
@@ -28,8 +29,7 @@ class _ContentPaneState extends ContentPaneState {
           final data = snapshot.data;
 
           if (data == null) {
-            // TODO
-            return SizedBox();
+            return Text("An unknown error occurred.", style: context.displayLarge);
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
@@ -41,8 +41,17 @@ class _ContentPaneState extends ContentPaneState {
                 return right.fold(
                   (error) {
                     if (error.message.isEmpty) {
-                      // TODO
-                      return Text("Please select a note or document :)");
+                      return Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Please select a note or document :)",
+                              style: context.titleMedium,
+                            ),
+                          ],
+                        ),
+                      );
                     }
                     return Text(error.message);
                   },

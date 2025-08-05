@@ -40,7 +40,6 @@ class NetworkService implements INetworkService {
   }) async* {
     try {
       if (!await _connectivityService.isConnected) {
-        // TODO
         yield Left(FailureModel.fail("No internet connection"));
       }
 
@@ -62,8 +61,7 @@ class NetworkService implements INetworkService {
       }
     } catch (e, stackTrace) {
       log("SSE Error: $e\n$stackTrace");
-      // TODO
-      yield Left(FailureModel.fail("message"));
+      yield Left(FailureModel.fail(e.toString()));
     }
   }
 

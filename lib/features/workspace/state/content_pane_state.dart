@@ -83,8 +83,7 @@ abstract class ContentPaneState extends State<ContentPane> {
         return fp.Right(fp.Left(error));
       }, (content) => fp.Right(fp.Right(content)));
     } else {
-      // TODO
-      return fp.Right(fp.Left(FailureModel.fail("Unknown error occurred.")));
+      return fp.Right(fp.Left(FailureModel.fail("An unknown error occurred.")));
     }
   }
 }
