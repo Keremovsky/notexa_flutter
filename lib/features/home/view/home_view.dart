@@ -8,7 +8,9 @@ import 'package:flutter_mobile/core/constants/colors_constants.dart';
 import 'package:flutter_mobile/core/extensions/context_extensions.dart';
 import 'package:flutter_mobile/features/home/state/home_view_state.dart';
 import 'package:flutter_mobile/features/home/widgets/workspace_item.dart';
+import 'package:flutter_mobile/features/workspace/controller/workspace_controller.dart';
 import 'package:flutter_mobile/gen/locale_keys.g.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
@@ -34,7 +36,6 @@ class _HomeViewState extends HomeViewState {
                   children: [
                     TextButton(
                       onPressed: onProfilePressed,
-
                       child: Row(
                         children: [
                           Icon(Icons.man, size: 28),
@@ -46,7 +47,6 @@ class _HomeViewState extends HomeViewState {
                     SizedBox(height: 20),
                     TextButton(
                       onPressed: onSettingsPressed,
-
                       child: Row(
                         children: [
                           Icon(Icons.settings, size: 28),
@@ -58,7 +58,6 @@ class _HomeViewState extends HomeViewState {
                     SizedBox(height: 20),
                     TextButton(
                       onPressed: onExitPressed,
-
                       child: Row(
                         children: [
                           Icon(Icons.exit_to_app, size: 28),
@@ -126,6 +125,13 @@ class _HomeViewState extends HomeViewState {
                                         height: 60,
                                         width: context.screenWidth * 0.4,
                                         workspace: workspace,
+                                        onWorkspaceRemoved: () async {
+                                          setState(() {
+                                            future = context
+                                                .read<WorkspaceController>()
+                                                .getWorkspaces();
+                                          });
+                                        },
                                       ),
                                     );
                                   },
