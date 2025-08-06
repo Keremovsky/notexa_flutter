@@ -29,62 +29,64 @@ class _LoginViewState extends LoginViewState {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-          child: Column(
-            children: [
-              Spacer(),
-              _TitleText(),
-              Spacer(),
-              Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    CustomTextField(
-                      onSaved: onUsernameSaved,
-                      validator: onUsernameValidate,
-                      hintText: LocaleKeys.username.tr(),
-                      autovalidateMode: AutovalidateMode.onUnfocus,
-                      textInputType: TextInputType.name,
-                      inputFormatters: InputFormatters.usernameFormatter,
-                    ),
-                    const SizedBox(height: 12),
-                    CustomTextField(
-                      onSaved: onPasswordSaved,
-                      validator: onPasswordValidate,
-                      hintText: LocaleKeys.password.tr(),
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      autovalidateMode: AutovalidateMode.onUnfocus,
-                      inputFormatters: InputFormatters.passwordFormatter,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-              CustomButton(
-                onPressed: onLoginButtonPressed,
-                child: Text(LocaleKeys.login.tr()),
-              ),
-              const SizedBox(height: 30),
-              Text.rich(
-                TextSpan(
-                  text: "${LocaleKeys.dontHaveAccount.tr()} ",
-                  style: context.displaySmall,
-                  children: [
-                    TextSpan(
-                      text: LocaleKeys.createRightNow.tr(),
-                      style: context.displaySmall?.copyWith(
-                        color: context.read<ThemeService>().isDarkTheme()
-                            ? ColorConstants.darkMain
-                            : ColorConstants.lightMain,
+          child: Center(
+            child: Column(
+              children: [
+                Spacer(),
+                _TitleText(),
+                Spacer(),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        onSaved: onUsernameSaved,
+                        validator: onUsernameValidate,
+                        hintText: LocaleKeys.username.tr(),
+                        autovalidateMode: AutovalidateMode.onUnfocus,
+                        textInputType: TextInputType.name,
+                        inputFormatters: InputFormatters.usernameFormatter,
                       ),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = onCreateAccountPressed,
-                    ),
-                  ],
+                      const SizedBox(height: 12),
+                      CustomTextField(
+                        onSaved: onPasswordSaved,
+                        validator: onPasswordValidate,
+                        hintText: LocaleKeys.password.tr(),
+                        obscureText: true,
+                        textInputAction: TextInputAction.done,
+                        autovalidateMode: AutovalidateMode.onUnfocus,
+                        inputFormatters: InputFormatters.passwordFormatter,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Spacer(flex: 4),
-            ],
+                const SizedBox(height: 30),
+                CustomButton(
+                  onPressed: onLoginButtonPressed,
+                  child: Text(LocaleKeys.login.tr()),
+                ),
+                const SizedBox(height: 30),
+                Text.rich(
+                  TextSpan(
+                    text: "${LocaleKeys.dontHaveAccount.tr()} ",
+                    style: context.displaySmall,
+                    children: [
+                      TextSpan(
+                        text: LocaleKeys.createRightNow.tr(),
+                        style: context.displaySmall?.copyWith(
+                          color: context.read<ThemeService>().isDarkTheme()
+                              ? ColorConstants.darkMain
+                              : ColorConstants.lightMain,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = onCreateAccountPressed,
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(flex: 4),
+              ],
+            ),
           ),
         ),
       ),

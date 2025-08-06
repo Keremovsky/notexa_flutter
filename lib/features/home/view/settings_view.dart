@@ -13,6 +13,9 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends SettingsViewState {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Column(children: []));
+    return Scaffold(
+      appBar: AppBar(toolbarHeight: 45),
+      body: Column(children: []),
+    );
   }
 }

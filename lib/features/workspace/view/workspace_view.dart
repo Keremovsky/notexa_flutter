@@ -18,24 +18,25 @@ class _WorkspaceViewState extends WorkspaceViewState {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(toolbarHeight: 45),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
             Row(
               children: [
                 SizedBox(
-                  height: context.screenHeight - 30,
+                  height: context.screenHeight - 45,
                   width: context.screenWidth * 0.2 - 40,
                   child: ShelfPane(onSelectedItemChanged: onSelectedItemChanged),
                 ),
                 SizedBox(
-                  height: context.screenHeight - 30,
+                  height: context.screenHeight - 45,
                   width: context.screenWidth * 0.6,
                   child: ContentPane(selectedItem: item),
                 ),
                 SizedBox(
-                  height: context.screenHeight - 30,
+                  height: context.screenHeight - 45,
                   width: context.screenWidth * 0.2,
                   child: ChatPane(selectedItem: item),
                 ),

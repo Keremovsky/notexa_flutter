@@ -27,6 +27,9 @@ class _ContentPaneState extends ContentPaneState {
         future: future,
         builder: (context, snapshot) {
           final data = snapshot.data;
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CustomLoadingIndicator();
+          }
 
           if (data == null) {
             return Text("An unknown error occurred.", style: context.displayLarge);

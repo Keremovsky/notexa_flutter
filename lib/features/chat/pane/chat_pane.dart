@@ -72,7 +72,7 @@ class _ChatPaneState extends ChatPaneState {
           ),
           SizedBox(height: 3),
           SizedBox(
-            height: context.screenHeight - 150,
+            height: context.screenHeight - 162,
             child: Expanded(
               child: Consumer<ChatController>(
                 builder: (context, controller, _) {
