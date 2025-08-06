@@ -35,9 +35,11 @@ class AccessControlInterceptor extends Interceptor {
         _retryQueue.add(options);
 
         try {
-          final result = await AuthController().refreshAuth(
+          final refreshToken = await _secureStorageService.get(
             dotenv.env["refreshToken"]!,
           );
+
+          final result = await AuthController().refreshAuth(refreshToken!);
 
           result.fold(
             () async {

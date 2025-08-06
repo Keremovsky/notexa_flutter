@@ -166,7 +166,7 @@ class AuthController extends ChangeNotifier {
         if (data is Map<String, dynamic>) {
           final accessToken = data["access"];
 
-          final userData = UserModel.fromJson({"access": accessToken});
+          final userData = _user.copyWith(access: accessToken);
 
           _networkService.setToken("Bearer $accessToken");
 
